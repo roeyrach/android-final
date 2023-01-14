@@ -11,7 +11,17 @@
     <string name="PasswordInput">Password</string>
     <string name="RePassword">Re-Password</string>
     <string name="cancel">Cancel</string>
+    <string name="petAge">Pet Age</string>
+    <string name="petName">Pet Name</string>
+    <string name="spinner_title" >Gender</string>
+    <string name="option_1">Male</string>
+    <string name="option_2">Female</string>
 
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+
+    </string-array>
 
     <string name="hello_first_fragment">AndroidFinal</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
