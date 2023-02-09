@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,12 +39,12 @@ public class SignUpFragment extends Fragment {
             String email = Objects.requireNonNull(binding.emailEt.getText()).toString();
             String password = Objects.requireNonNull(binding.passwordEt).toString();
             String rePassword = Objects.requireNonNull(binding.rePasswordEt.getText()).toString();
-            System.out.println(password );
-
+            System.out.println(user );
+            NavHostFragment.findNavController(SignUpFragment.this).navigate(R.id.action_signUpFragment_to_petInfoFragment);
 
         });
 
-        binding.cancellBtn.setOnClickListener(view -> {
+        binding.cancelBtn.setOnClickListener(view -> {
             binding.usernameEt.setText("");
             binding.emailEt.setText("");
             binding.passwordEt.setText("");
