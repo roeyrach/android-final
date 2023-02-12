@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.android_final.SignInFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        android:label="Sign In"
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -19,8 +19,8 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.android_final.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_petInfoFragment"
             app:destination="@id/petInfoFragment" />
@@ -28,11 +28,23 @@
     <fragment
         android:id="@+id/petInfoFragment"
         android:name="com.example.android_final.PetInfoFragment"
-        android:label="fragment_pet_info"
-        tools:layout="@layout/fragment_pet_info" />
+        android:label="Pet Information"
+        tools:layout="@layout/fragment_pet_info">
+        <action
+            android:id="@+id/action_petInfoFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_petInfoFragment_to_mainFeedFragment"
+            app:destination="@id/mainFeedFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFeedFragment"
         android:name="com.example.android_final.MainFeedFragment"
-        android:label="fragment_main_feed"
+        android:label="Posts Feed"
         tools:layout="@layout/fragment_main_feed" />
+    <fragment
+        android:id="@+id/animalApiListFragment"
+        android:name="com.example.android_final.AnimalApiListFragment"
+        android:label="Dog Types"
+        tools:layout="@layout/fragment_animal_api_list" />
 </navigation>

@@ -1,10 +1,17 @@
 package com.example.android_final;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +30,33 @@ import java.util.List;
 public class PetInfoFragment extends Fragment {
 
     FragmentPetInfoBinding binding;
+    ActivityResultLauncher<Void> cameraLauncher;
+    ActivityResultLauncher<String> galleryLauncher;
+    Boolean isAvatarSelected = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
+            @Override
+            public void onActivityResult(Bitmap result) {
+                if (result != null) {
+                    binding.avatarImg.setImageBitmap(result);
+                    isAvatarSelected = true;
+                }
+            }
+        });
+
+        galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                if (result != null){
+                    binding.avatarImg.setImageURI(result);
+                    isAvatarSelected = true;
+                }
+            }
+        });
 
 
     }
@@ -47,7 +77,6 @@ public class PetInfoFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = adapterView.getItemAtPosition(i).toString();
                 System.out.println(text);
-
             }
 
             @Override
@@ -56,6 +85,21 @@ public class PetInfoFragment extends Fragment {
             }
         });
 
+        binding.cameraButton.setOnClickListener(view -> {
+            cameraLauncher.launch(null);
+        });
+
+        binding.galleryButton.setOnClickListener(view -> {
+            galleryLauncher.launch("image/*");
+        });
+
+        binding.saveBtn.setOnClickListener(view -> {
+            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+        });
+
+        binding.cancellBtn.setOnClickListener(view -> {
+            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_signUpFragment);
+        });
 
 
          return binding.getRoot();
