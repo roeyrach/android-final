@@ -6,6 +6,9 @@ import java.util.List;
 public class Model {
     private static final Model _instance = new Model();
 
+    private FirebaseModel firebaseModel = new FirebaseModel();
+
+
     private Model(){
     }
 
@@ -26,5 +29,9 @@ public class Model {
         postsList.add(post);
     }
 
+
+    public void signUpUser(String email, String password){
+        firebaseModel.signUpUser(email,password);
+    }
 
 }

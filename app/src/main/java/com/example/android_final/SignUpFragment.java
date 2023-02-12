@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android_final.databinding.FragmentSignUpBinding;
+import com.example.android_final.model.FirebaseModel;
+import com.example.android_final.model.Model;
 
 import java.util.Objects;
 
@@ -41,8 +43,9 @@ public class SignUpFragment extends Fragment {
             String rePassword = Objects.requireNonNull(binding.rePasswordEt.getText()).toString();
             System.out.println(user );
             NavHostFragment.findNavController(SignUpFragment.this).navigate(R.id.action_signUpFragment_to_petInfoFragment);
-
         });
+
+//        Model.instance().signUpUser("Guy@ba.com", "1234567");
 
         binding.cancelBtn.setOnClickListener(view -> {
             binding.usernameEt.setText("");
