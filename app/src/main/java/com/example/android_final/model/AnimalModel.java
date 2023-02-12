@@ -11,6 +11,8 @@ import com.google.gson.JsonArray;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,17 +21,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AnimalModel {
-    final public static AnimalModel instance = new AnimalModel();
+    final public static AnimalModel _instance = new AnimalModel();
 
+
+    private final Executor executor = Executors.newSingleThreadExecutor();
     final String BASE_URL = "https://api.api-ninjas.com/v1/";
     Retrofit retrofit;
     AnimalApi animalApi;
-
+    public static AnimalModel instance(){ return _instance;}
     private AnimalModel(){
-        JsonArray gs = new JsonArray();
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         animalApi = retrofit.create(AnimalApi.class);
     }
@@ -56,6 +56,18 @@ public class AnimalModel {
 
         return data;
     }
+
+    public void refreshAllAnimals() {
+
+    }
+
+    public enum LoadingState{
+        LOADING,
+        NOT_LOADING
+    }
+
+    final public MutableLiveData<LoadingState> EventStudentsListLoadingState = new MutableLiveData<LoadingState>(LoadingState.NOT_LOADING);
+
 
 }
 

@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 
 public interface AnimalApi {
     @Headers("X-Api-Key: 6C/qQCyL/lh2vUA27CZG1w==2xmVOXCjGNdlApth" )
-    @GET("animals?")
+    @GET("dogs?")
     Call<List<Animal>> searchAnimalByName(@Query("name") String name);
 
 }
