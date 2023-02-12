@@ -41,10 +41,19 @@
         android:id="@+id/mainFeedFragment"
         android:name="com.example.android_final.MainFeedFragment"
         android:label="Posts Feed"
-        tools:layout="@layout/fragment_main_feed" />
+        tools:layout="@layout/fragment_main_feed" >
+        <action
+            android:id="@+id/action_mainFeedFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/animalApiListFragment"
         android:name="com.example.android_final.AnimalApiListFragment"
         android:label="Dog Types"
         tools:layout="@layout/fragment_animal_api_list" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.example.android_final.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>

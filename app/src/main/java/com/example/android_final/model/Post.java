@@ -1,7 +1,11 @@
 package com.example.android_final.model;
-
-
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+@Entity
 public class Post {
+    @PrimaryKey
+    @NonNull
     public String postId = "";
     public String avatarUrl = "";
     public String userName = "";
