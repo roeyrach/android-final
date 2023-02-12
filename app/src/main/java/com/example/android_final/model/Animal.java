@@ -12,14 +12,24 @@ public class Animal {
     @SerializedName("name")
     String Name;
 
-    @SerializedName("locations")
-    List<String> Locations;
 
-    @SerializedName("characteristics")
-    Map<String,String> Characteristics;
 
-    @SerializedName("taxonomy")
-    Map<String,String> Taxonomy;
+    @SerializedName("image_link")
+    String ImageUrl;
+
+    @SerializedName("good_with_children")
+    String GoodWithChildren;
+
+     @SerializedName("playfulness")
+    String PlayFulness;
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
+    }
     public String getName() {
         return Name;
     }
@@ -28,28 +38,21 @@ public class Animal {
         Name = name;
     }
 
-    public List<String> getLocations() {
-        return Locations;
+
+
+    public String getGoodWithChildren() {
+        return GoodWithChildren;
     }
 
-    public void setLocations(List<String> locations) {
-        Locations = locations;
+    public void setGoodWithChildren(String goodWithChildren) {
+        GoodWithChildren = goodWithChildren;
     }
 
-    public  Map<String,String>  getCharacteristics() {
-//        Log.d("TAG", new Gson().fromJson()
-        return Characteristics;
+    public String getPlayFulness() {
+        return PlayFulness;
     }
 
-    public void setCharacteristics( Map<String,String>  characteristics) {
-        Characteristics = characteristics;
-    }
-
-    public Map<String, String> getTaxonomy() {
-        return Taxonomy;
-    }
-
-    public void setTaxonomy(Map<String, String> taxonomy) {
-        Taxonomy = taxonomy;
+    public void setPlayFulness(String playFulness) {
+        PlayFulness = playFulness;
     }
 }

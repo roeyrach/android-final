@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class PetInfoFragment extends Fragment {
     FragmentPetInfoBinding binding;
     ActivityResultLauncher<Void> cameraLauncher;
     ActivityResultLauncher<String> galleryLauncher;
+    Boolean isAvatarSelected = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class PetInfoFragment extends Fragment {
             public void onActivityResult(Bitmap result) {
                 if (result != null) {
                     binding.avatarImg.setImageBitmap(result);
-//                    isAvatarSelected = true;
+                    isAvatarSelected = true;
                 }
             }
         });
@@ -51,7 +53,7 @@ public class PetInfoFragment extends Fragment {
             public void onActivityResult(Uri result) {
                 if (result != null){
                     binding.avatarImg.setImageURI(result);
-//                    isAvatarSelected = true;
+                    isAvatarSelected = true;
                 }
             }
         });
@@ -91,6 +93,13 @@ public class PetInfoFragment extends Fragment {
             galleryLauncher.launch("image/*");
         });
 
+        binding.saveBtn.setOnClickListener(view -> {
+            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+        });
+
+        binding.cancellBtn.setOnClickListener(view -> {
+            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_signUpFragment);
+        });
 
 
          return binding.getRoot();
