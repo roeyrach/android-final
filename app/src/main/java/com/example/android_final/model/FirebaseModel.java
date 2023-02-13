@@ -28,12 +28,14 @@ public class FirebaseModel {
     }
 
 
-    public void signInUser(String email, String password){
-        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener( executor, new OnCompleteListener<AuthResult>() {
+    public void signInUser(String email, String password, Model.Listener<FirebaseUser> listener){
+        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(  new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d("Tag", "signIn success");
+                    FirebaseUser user = auth.getCurrentUser();
+                    listener.onComplete(user);
                 }
                 else{
                     Log.d("tag", "signIn failed");
@@ -43,15 +45,17 @@ public class FirebaseModel {
 
     }
 
-    public void signUpUser(String email, String password){
+    public void signUpUser(String email, String password, Model.Listener<FirebaseUser> listener){
         auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener( executor, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
+
+                            listener.onComplete(user);
 
                         } else {
                             // If sign in fails, display a message to the user.

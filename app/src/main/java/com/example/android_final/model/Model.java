@@ -1,5 +1,9 @@
 package com.example.android_final.model;
 
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +14,10 @@ public class Model {
 
 
     private Model(){
+    }
+
+    public interface Listener<T>{
+        void onComplete(T data);
     }
 
     public static Model instance(){
@@ -30,8 +38,18 @@ public class Model {
     }
 
 
-    public void signUpUser(String email, String password){
-        firebaseModel.signUpUser(email,password);
+    public void signUpUser(String email, String password, Listener<Void> listener){
+        firebaseModel.signUpUser(email,password, (FireBaseUser)->{
+            Log.d("TAG", FireBaseUser.getUid());
+            listener.onComplete(null);
+        });
+    }
+
+    public void signInUser(String email, String password, Listener<Void> listener){
+        firebaseModel.signInUser(email,password,(FireBaseUser)->{
+            Log.d("TAG", FireBaseUser.getUid());
+            listener.onComplete(null);
+        });
     }
 
 }
