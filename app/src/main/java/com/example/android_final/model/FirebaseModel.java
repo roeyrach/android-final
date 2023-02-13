@@ -93,6 +93,7 @@ public class FirebaseModel {
             public void onComplete(@NonNull Task<Void> task) {
                 Log.d("TAG","userAdded");
                 listener.onComplete(null);
+
             }
         });
     }
@@ -136,9 +137,9 @@ public class FirebaseModel {
                         listener.onComplete(uri.toString());
                     }
                 });
+
             }
         });
-
     }
 
 
