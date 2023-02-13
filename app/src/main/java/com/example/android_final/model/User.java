@@ -22,9 +22,8 @@ public class User {
     static final String ID = "id";
     static final String Pet = "pet";
     static final String Email = "email";
-    static final String COLLECTION = "students";
-    static final String LAST_UPDATED = "lastUpdated";
-    static final String LOCAL_LAST_UPDATED = "students_local_last_update";
+    static final String COLLECTION = "users";
+
 
     public Map<String,Object> toJson(){
         Map<String,Object> map = new HashMap<>();

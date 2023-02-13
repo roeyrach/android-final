@@ -46,6 +46,7 @@ public class Model {
             user.setUserFirebaseID(FireBaseUser.getUid());
             Log.d("TAG", user.toJson().toString());
             listener.onComplete(null);
+            firebaseModel.addUser(user);
         });
     }
 

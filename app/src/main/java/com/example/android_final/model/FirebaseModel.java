@@ -11,18 +11,26 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class FirebaseModel {
 
     private FirebaseAuth auth;
-    private Executor executor = Executors.newSingleThreadExecutor();
+    FirebaseFirestore db;
 
 
     FirebaseModel(){
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(false)
+                .build();
+        db.setFirestoreSettings(settings);
 
 
     }
@@ -66,8 +74,17 @@ public class FirebaseModel {
                 });
     }
 
-    public void getUser(){
+    public void addUser(User user){
+        db.collection(User.COLLECTION).document(user.getUserFirebaseID()).set(user.toJson())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d("TAG","userAdded");
+            }
+        });
 
     }
+
+
 
 }
