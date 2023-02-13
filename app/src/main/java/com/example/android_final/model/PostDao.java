@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface PostDao {
     @Query("select * from Post")
-    LiveData<List<Post>> getAll();
+    List<Post> getAll();
 
     @Query("select * from Post where postId = :postId")
     Post getById(String postId);

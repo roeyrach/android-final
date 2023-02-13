@@ -16,10 +16,9 @@ public class Post {
     public Post() {
     }
 
-    public Post(String userName, String postTextContent, String imageUrl) {
+    public Post(String userName, String postTextContent) {
         this.userName = userName;
         this.postTextContent = postTextContent;
-        this.imageUrl = imageUrl;
     }
 
     public String getPostId() {
