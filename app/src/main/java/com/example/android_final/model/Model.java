@@ -38,9 +38,13 @@ public class Model {
     }
 
 
-    public void signUpUser(String email, String password, Listener<Void> listener){
+    public void signUpUser(String name, String email ,String password,Pet pet, Listener<Void> listener){
         firebaseModel.signUpUser(email,password, (FireBaseUser)->{
             Log.d("TAG", FireBaseUser.getUid());
+
+            User user = new User(name,email,password,pet);
+            user.setUserFirebaseID(FireBaseUser.getUid());
+            Log.d("TAG", user.toJson().toString());
             listener.onComplete(null);
         });
     }

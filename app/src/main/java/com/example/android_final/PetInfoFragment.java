@@ -24,6 +24,7 @@ import android.widget.Spinner;
 
 import com.example.android_final.databinding.FragmentPetInfoBinding;
 import com.example.android_final.model.Model;
+import com.example.android_final.model.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,9 +105,12 @@ public class PetInfoFragment extends Fragment {
             String name = args.getUserName();
             String email = args.getUserEmail();
             String password = args.getUserPassword();
-            long l = Thread.currentThread().getId();
-            Log.d("TAG", String.valueOf(l));
-            Model.instance().signUpUser(email,password, (unused)->{
+            String petName = binding.petNameEt.toString();
+            String petGender = binding.spinner.toString();
+            String petAge = binding.petAgeEt.toString();
+            String url = "";
+            Pet pet = new Pet(petName,url,petAge,petGender);
+            Model.instance().signUpUser(name, email ,password,pet, (unused)->{
                 Log.d("TAG", "UserAdded");
                 NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
             });
