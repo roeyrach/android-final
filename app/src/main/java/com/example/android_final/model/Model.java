@@ -45,15 +45,21 @@ public class Model {
             User user = new User(name,email,password,pet);
             user.setUserFirebaseID(FireBaseUser.getUid());
             Log.d("TAG", user.toJson().toString());
-            listener.onComplete(null);
-            firebaseModel.addUser(user);
+
+            firebaseModel.addUser(user,(unused)->{
+                listener.onComplete(null);
+            });
         });
     }
 
     public void signInUser(String email, String password, Listener<Void> listener){
         firebaseModel.signInUser(email,password,(FireBaseUser)->{
             Log.d("TAG", FireBaseUser.getUid());
-            listener.onComplete(null);
+            firebaseModel.getUser(FireBaseUser.getUid(), (User)->{
+                Log.d("TAG", "userfound in Model");
+                listener.onComplete(null);
+            });
+
         });
     }
 

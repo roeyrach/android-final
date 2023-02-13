@@ -34,7 +34,7 @@ public class SignInFragment extends Fragment {
             NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_signUpFragment);
         });
         binding.signInBtn.setOnClickListener(view->{
-            Model.instance().signInUser("roe@gmial.co", "123456",(unused)->{
+            Model.instance().signInUser("Guy@guy.guy", "123456",(unused)->{
                 Log.d("TAG", "userFound");
                 NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
             });
