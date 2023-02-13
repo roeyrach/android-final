@@ -1,6 +1,9 @@
 package com.example.android_final.model;
 
 public class Pet {
+
+
+
     String petName;
     String petImageUrl;
     String petAge;
@@ -15,6 +18,7 @@ public class Pet {
         this.petAge = petAge;
         this.petGender = petGender;
     }
+
 
     public String getPetName() {
         return petName;
