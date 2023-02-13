@@ -11,8 +11,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -74,15 +76,32 @@ public class FirebaseModel {
                 });
     }
 
-    public void addUser(User user){
+    public void addUser(User user, Model.Listener<Void> listener){
         db.collection(User.COLLECTION).document(user.getUserFirebaseID()).set(user.toJson())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Log.d("TAG","userAdded");
+                listener.onComplete(null);
             }
         });
+    }
 
+    public void getUser(String uid, Model.Listener<User> listener){
+        db.collection(User.COLLECTION).whereEqualTo("id", uid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot jsonList = task.getResult();
+                            for (DocumentSnapshot json : jsonList){
+                                User user = User.fromJson(json.getData());
+                                Log.d("TAG","User found");
+                                listener.onComplete(user);
+                            }
+                        }
+                    }
+                });
     }
 
 

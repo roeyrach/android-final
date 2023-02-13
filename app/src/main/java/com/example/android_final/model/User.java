@@ -11,10 +11,14 @@ public class User {
     String email;
     String password;
     Pet userPet;
+
+    public User(){
+
+    }
+
     public User(String userName, String email, String password, Pet userPet){
         this.userName =userName;
         this.email = email;
-        this.password =password;
         this.userPet = userPet;
     }
 
@@ -24,7 +28,15 @@ public class User {
     static final String Email = "email";
     static final String COLLECTION = "users";
 
+    public static User fromJson(Map<String,Object> json){
 
+        String id = (String) json.get(ID);
+        String name = (String) json.get(NAME);
+        String email = (String) json.get(Email);
+        User user = new User(name,email,"",new Pet());
+        user.setUserFirebaseID(id);
+        return user;
+    }
     public Map<String,Object> toJson(){
         Map<String,Object> map = new HashMap<>();
         map.put(ID,userFirebaseID);
