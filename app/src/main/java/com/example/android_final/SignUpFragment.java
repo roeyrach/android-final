@@ -4,16 +4,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.android_final.SignUpFragmentDirections.ActionSignUpFragmentToPetInfoFragment;
-import com.example.android_final.databinding.FragmentSignUpBinding;
 
+import com.example.android_final.databinding.FragmentSignUpBinding;
+import com.example.android_final.model.FirebaseModel;
+import com.example.android_final.model.Model;
 
 import java.util.Objects;
 
@@ -39,18 +39,13 @@ public class SignUpFragment extends Fragment {
 
           String user = Objects.requireNonNull(binding.usernameEt.getText()).toString();
             String email = Objects.requireNonNull(binding.emailEt.getText()).toString();
-            String password = Objects.requireNonNull(binding.passwordEt.getText()).toString();
+            String password = Objects.requireNonNull(binding.passwordEt).toString();
             String rePassword = Objects.requireNonNull(binding.rePasswordEt.getText()).toString();
-            if(password.length() >5 &&  password.equals(rePassword)){
-                ActionSignUpFragmentToPetInfoFragment action = SignUpFragmentDirections.actionSignUpFragmentToPetInfoFragment();
-                action.setUserName(user).setUserEmail(email).setUserPassword(password);
-                NavHostFragment.findNavController(SignUpFragment.this).navigate(action);
-            }else{
-                Log.d("Tag", "password does not  match");
-            }
-
+            System.out.println(user );
+            NavHostFragment.findNavController(SignUpFragment.this).navigate(R.id.action_signUpFragment_to_petInfoFragment);
         });
 
+//        Model.instance().signUpUser("Guy@ba.com", "1234567");
 
         binding.cancelBtn.setOnClickListener(view -> {
             binding.usernameEt.setText("");

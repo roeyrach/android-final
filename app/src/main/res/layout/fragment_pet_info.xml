@@ -33,8 +33,8 @@
 
                 <ImageButton
                     android:id="@+id/galleryButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|left"
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_baseline_image_search_24" />
