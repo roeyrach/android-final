@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
-
-=======
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseUser;
