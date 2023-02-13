@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -22,9 +23,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.android_final.databinding.FragmentPetInfoBinding;
+import com.example.android_final.model.Model;
+import com.example.android_final.model.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class PetInfoFragment extends Fragment {
@@ -33,6 +37,7 @@ public class PetInfoFragment extends Fragment {
     ActivityResultLauncher<Void> cameraLauncher;
     ActivityResultLauncher<String> galleryLauncher;
     Boolean isAvatarSelected = false;
+    PetInfoFragmentArgs args;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,10 @@ public class PetInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          binding = FragmentPetInfoBinding.inflate(inflater, container, false);
+         args = PetInfoFragmentArgs.fromBundle(getArguments());
+
+
+//         Log.d("TAG", name);
         Spinner spinner = binding.spinner;
         spinner.setPrompt("Select Gender");
 
@@ -94,7 +103,19 @@ public class PetInfoFragment extends Fragment {
         });
 
         binding.saveBtn.setOnClickListener(view -> {
-            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+            String name = args.getUserName();
+            String email = args.getUserEmail();
+            String password = args.getUserPassword();
+            String petName = Objects.requireNonNull(binding.petNameEt.getText()).toString();
+            String petGender = binding.spinner.getTransitionName();
+            String petAge = Objects.requireNonNull(binding.petAgeEt.getText()).toString();
+            String url = "";
+            Pet pet = new Pet(petName,url,petAge,petGender);
+            Model.instance().signUpUser(name, email ,password,pet, (unused)->{
+                Log.d("TAG", "UserAdded");
+                NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+            });
+
         });
 
         binding.cancellBtn.setOnClickListener(view -> {
