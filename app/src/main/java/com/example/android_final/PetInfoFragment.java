@@ -28,6 +28,7 @@ import com.example.android_final.model.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class PetInfoFragment extends Fragment {
@@ -105,9 +106,9 @@ public class PetInfoFragment extends Fragment {
             String name = args.getUserName();
             String email = args.getUserEmail();
             String password = args.getUserPassword();
-            String petName = binding.petNameEt.toString();
-            String petGender = binding.spinner.toString();
-            String petAge = binding.petAgeEt.toString();
+            String petName = Objects.requireNonNull(binding.petNameEt.getText()).toString();
+            String petGender = binding.spinner.getTransitionName();
+            String petAge = Objects.requireNonNull(binding.petAgeEt.getText()).toString();
             String url = "";
             Pet pet = new Pet(petName,url,petAge,petGender);
             Model.instance().signUpUser(name, email ,password,pet, (unused)->{
