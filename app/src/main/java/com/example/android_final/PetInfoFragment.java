@@ -1,6 +1,7 @@
 package com.example.android_final;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -71,9 +72,6 @@ public class PetInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
          binding = FragmentPetInfoBinding.inflate(inflater, container, false);
          args = PetInfoFragmentArgs.fromBundle(getArguments());
-
-
-//         Log.d("TAG", name);
         Spinner spinner = binding.spinner;
         spinner.setPrompt("Select Gender");
 
@@ -103,18 +101,36 @@ public class PetInfoFragment extends Fragment {
         });
 
         binding.saveBtn.setOnClickListener(view -> {
+            binding.petInfoProgressbar.setVisibility(View.VISIBLE);
             String name = args.getUserName();
             String email = args.getUserEmail();
             String password = args.getUserPassword();
             String petName = Objects.requireNonNull(binding.petNameEt.getText()).toString();
-            String petGender = binding.spinner.getTransitionName();
+            String petGender = binding.spinner.getSelectedItem().toString();
             String petAge = Objects.requireNonNull(binding.petAgeEt.getText()).toString();
             String url = "";
             Pet pet = new Pet(petName,url,petAge,petGender);
-            Model.instance().signUpUser(name, email ,password,pet, (unused)->{
-                Log.d("TAG", "UserAdded");
-                NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
-            });
+            if(isAvatarSelected){
+                binding.avatarImg.setDrawingCacheEnabled(true);
+                binding.avatarImg.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) binding.avatarImg.getDrawable()).getBitmap();
+                Model.instance().uploadImage(name,bitmap,uri-> {
+                    if (uri != null) {
+                        pet.setPetImageUrl(uri);
+                    }
+                    Model.instance().signUpUser(name, email, password, pet, (unused) -> {
+                        NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+                        binding.petInfoProgressbar.setVisibility(View.GONE);
+                    });
+                });
+            }else{
+                Model.instance().signUpUser(name, email ,password,pet, (unused)->{
+                    NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+                    binding.petInfoProgressbar.setVisibility(View.GONE);
+
+                });
+            }
+
 
         });
 

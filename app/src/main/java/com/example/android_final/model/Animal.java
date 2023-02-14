@@ -12,8 +12,6 @@ public class Animal {
     @SerializedName("name")
     String Name;
 
-
-
     @SerializedName("image_link")
     String ImageUrl;
 

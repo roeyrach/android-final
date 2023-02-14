@@ -44,16 +44,6 @@ public class AnimalApiListFragment extends Fragment {
         binding = FragmentAnimalApiListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        LiveData<List<Animal>> data = viewModel.getData();
-        data.observe(getViewLifecycleOwner(),list->{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                list.forEach(item-> {
-                    Log.d("Tag", "getAnimal: " + item.getName() );
-                });
-            }
-
-        });
-
         binding.animalApiRecyclerView.setHasFixedSize(true);
         binding.animalApiRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new AnimalRecyclerAdapter(getLayoutInflater(),viewModel.getData().getValue());
@@ -68,6 +58,8 @@ public class AnimalApiListFragment extends Fragment {
 
             }
         });
+
+        binding.animalProgressBar.setVisibility(View.GONE);
 
         viewModel.getData().observe(getViewLifecycleOwner(), list->{
                 adapter.setData(list);
