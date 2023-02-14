@@ -1,6 +1,7 @@
 package com.example.android_final.model;
 
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -96,6 +97,10 @@ public class Model {
 
         });
 
+    }
+
+    public void uploadImage(String name, Bitmap bitmap, Listener<String> listener){
+        firebaseModel.uploadImage(name,bitmap,listener);
     }
 
 }

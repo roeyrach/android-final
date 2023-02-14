@@ -4,6 +4,7 @@ package com.example.android_final;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_final.model.Animal;
 import com.example.android_final.model.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
     TextView animalName;
     TextView playfulness;
     TextView goodWithKids;
+    ImageView avatar;
 
     List<Animal> data;
 
@@ -28,6 +31,7 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
         animalName = itemView.findViewById(R.id.animalName);
         playfulness = itemView.findViewById(R.id.playfulnessTV);
         goodWithKids = itemView.findViewById(R.id.good_with_kidsTV);
+        avatar = itemView.findViewById(R.id.avatarImg);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,9 +45,17 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Animal animal, int pos){
-        animalName.setText(animal.getName());
-        playfulness.setText(animal.getPlayFulness());
-        goodWithKids.setText(animal.getGoodWithChildren());
+        String name = "Type: " + animal.getName();
+        String goodWith = "Good with kids: " + animal.getGoodWithChildren();
+        String playfull = "Playfullness: " + animal.getPlayFulness();
+        animalName.setText(name);
+        playfulness.setText(playfull);
+        goodWithKids.setText(goodWith);
+        if (animal.getImageUrl()  != null && animal.getImageUrl().length() > 5) {
+            Picasso.get().load(animal.getImageUrl()).placeholder(R.drawable.avatar).into(avatar);
+        }else{
+            avatar.setImageResource(R.drawable.avatar);
+        }
 
     }
 }
@@ -73,7 +85,7 @@ public class AnimalRecyclerAdapter extends RecyclerView.Adapter<AnimalViewHolder
     @NonNull
     @Override
     public AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.animal_list_row, parent, false);
+        View view = inflater.inflate(R.layout.fragment_animal_card, parent, false);
         AnimalViewHolder holder = new AnimalViewHolder(view, listener, data);
         return holder;
     }
