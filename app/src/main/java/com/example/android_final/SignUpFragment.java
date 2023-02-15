@@ -3,6 +3,7 @@ package com.example.android_final;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -36,6 +37,7 @@ public class SignUpFragment extends Fragment {
         binding = FragmentSignUpBinding.inflate(inflater, container, false);
 
         binding.saveBtn.setOnClickListener(view -> {
+            AlertDialogFragment dialog = new AlertDialogFragment();
 
           String user = Objects.requireNonNull(binding.usernameEt.getText()).toString();
             String email = Objects.requireNonNull(binding.emailEt.getText()).toString();
@@ -46,6 +48,8 @@ public class SignUpFragment extends Fragment {
                 action.setUserName(user).setUserEmail(email).setUserPassword(password);
                 NavHostFragment.findNavController(SignUpFragment.this).navigate(action);
             }else{
+                dialog.setMessage("Password does not match");
+                dialog.show(getChildFragmentManager(),"TAG");
                 Log.d("Tag", "password does not  match");
             }
 
