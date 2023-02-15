@@ -73,7 +73,7 @@ public class PetInfoFragment extends Fragment {
          binding = FragmentPetInfoBinding.inflate(inflater, container, false);
          args = PetInfoFragmentArgs.fromBundle(getArguments());
         Spinner spinner = binding.spinner;
-        spinner.setPrompt("Select Gender");
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.gender, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
 
