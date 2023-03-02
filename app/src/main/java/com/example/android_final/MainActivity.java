@@ -52,15 +52,7 @@ private ActivityMainBinding binding;
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            navController.navigate(R.id.action_global_animalApiListFragment);
-        }
-        else if(id == R.id.userProfile){
-            navController.navigate(R.id.action_global_userProfile);
-        }
+       NavigationUI.onNavDestinationSelected(item,navController);
 
 
         return super.onOptionsItemSelected(item);
