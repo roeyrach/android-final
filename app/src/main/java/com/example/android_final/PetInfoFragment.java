@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import com.example.android_final.databinding.FragmentPetInfoBinding;
 import com.example.android_final.model.Model;
 import com.example.android_final.model.Pet;
+import com.example.android_final.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,13 @@ public class PetInfoFragment extends Fragment {
     Boolean isAvatarSelected = false;
     PetInfoFragmentArgs args;
 
+    UserViewModel userViewModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userViewModel = UserViewModel.getInstance();
 
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
             @Override
@@ -118,13 +123,15 @@ public class PetInfoFragment extends Fragment {
                     if (uri != null) {
                         pet.setPetImageUrl(uri);
                     }
-                    Model.instance().signUpUser(name, email, password, pet, (unused) -> {
+                    Model.instance().signUpUser(name, email, password, pet, (User) -> {
+                        userViewModel.setCurrentUser(User);
                         NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
                         binding.petInfoProgressbar.setVisibility(View.GONE);
                     });
                 });
             }else{
-                Model.instance().signUpUser(name, email ,password,pet, (unused)->{
+                Model.instance().signUpUser(name, email ,password,pet, (User)->{
+                   userViewModel.setCurrentUser(User);
                     NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
                     binding.petInfoProgressbar.setVisibility(View.GONE);
 
