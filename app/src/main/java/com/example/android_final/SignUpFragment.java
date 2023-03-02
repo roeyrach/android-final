@@ -57,10 +57,7 @@ public class SignUpFragment extends Fragment {
 
 
         binding.cancelBtn.setOnClickListener(view -> {
-            binding.usernameEt.setText("");
-            binding.emailEt.setText("");
-            binding.passwordEt.setText("");
-            binding.rePasswordEt.setText("");
+            Navigation.findNavController(view).popBackStack();
         });
 
         return binding.getRoot();

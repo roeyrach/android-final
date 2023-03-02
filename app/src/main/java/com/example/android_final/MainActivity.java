@@ -16,6 +16,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
+    NavController navController;
 private ActivityMainBinding binding;
 
     @Override
@@ -27,7 +28,7 @@ private ActivityMainBinding binding;
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -55,8 +56,12 @@ private ActivityMainBinding binding;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            navController.navigate(R.id.action_global_animalApiListFragment);
         }
+        else if(id == R.id.userProfile){
+            navController.navigate(R.id.action_global_userProfile);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
