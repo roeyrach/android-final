@@ -3,6 +3,7 @@ package com.example.android_final.model;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class User {
 
 
@@ -33,7 +34,8 @@ public class User {
         String id = (String) json.get(ID);
         String name = (String) json.get(NAME);
         String email = (String) json.get(Email);
-        User user = new User(name,email,"",new Pet());
+        Pet pet = com.example.android_final.model.Pet.fromJson((Map<String, Object>) json.get(Pet));
+        User user = new User(name,email,"",pet);
         user.setUserFirebaseID(id);
         return user;
     }
@@ -42,7 +44,7 @@ public class User {
         map.put(ID,userFirebaseID);
         map.put(NAME,userName);
         map.put(Email,email);
-        map.put(Pet,userPet);
+        map.put(Pet,userPet.toJson());
 
         return map;
     }

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+
 public class Model {
     private static final Model _instance = new Model();
 
@@ -73,7 +74,7 @@ public class Model {
 
 
 
-    public void signUpUser(String name, String email ,String password,Pet pet, Listener<Void> listener){
+    public void signUpUser(String name, String email ,String password,Pet pet, Listener<User> listener){
         firebaseModel.signUpUser(email,password, (FireBaseUser)->{
             Log.d("TAG", FireBaseUser.getUid());
 
@@ -82,17 +83,17 @@ public class Model {
             Log.d("TAG", user.toJson().toString());
 
             firebaseModel.addUser(user,(unused)->{
-                listener.onComplete(null);
+                listener.onComplete(user);
             });
         });
     }
 
-    public void signInUser(String email, String password, Listener<Void> listener){
+    public void signInUser(String email, String password, Listener<User> listener){
         firebaseModel.signInUser(email,password,(FireBaseUser)->{
             Log.d("TAG", FireBaseUser.getUid());
             firebaseModel.getUser(FireBaseUser.getUid(), (User)->{
                 Log.d("TAG", "userfound in Model");
-                listener.onComplete(null);
+                listener.onComplete(User);
             });
 
         });

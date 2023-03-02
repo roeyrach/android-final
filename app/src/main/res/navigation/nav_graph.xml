@@ -77,6 +77,9 @@
         android:id="@+id/userProfile"
         android:name="com.example.android_final.UserProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_animalApiListFragment" app:destination="@id/animalApiListFragment"/><action android:id="@+id/action_global_userProfile" app:destination="@id/userProfile"/>
+        tools:layout="@layout/fragment_user_profile" />
+    <action android:id="@+id/action_global_animalApiListFragment" app:destination="@id/animalApiListFragment"/>
+    <action android:id="@+id/action_global_userProfile" app:destination="@id/userProfile"/>
+
 
 </navigation>
