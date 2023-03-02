@@ -135,7 +135,7 @@ public class PetInfoFragment extends Fragment {
         });
 
         binding.cancellBtn.setOnClickListener(view -> {
-            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_signUpFragment);
+            Navigation.findNavController(view).popBackStack();
         });
 
 

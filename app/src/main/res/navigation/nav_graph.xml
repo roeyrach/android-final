@@ -46,9 +46,6 @@
             android:defaultValue="string"
             />
         <action
-            android:id="@+id/action_petInfoFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
             android:id="@+id/action_petInfoFragment_to_mainFeedFragment"
             app:destination="@id/mainFeedFragment" />
 
@@ -76,4 +73,10 @@
             android:id="@+id/action_addPostFragment_to_mainFeedFragment"
             app:destination="@id/mainFeedFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.example.android_final.UserProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_animalApiListFragment" app:destination="@id/animalApiListFragment"/><action android:id="@+id/action_global_userProfile" app:destination="@id/userProfile"/>
+
 </navigation>
