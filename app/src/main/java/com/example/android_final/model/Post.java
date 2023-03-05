@@ -2,6 +2,11 @@ package com.example.android_final.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @Entity
 public class Post {
     @PrimaryKey
@@ -19,6 +24,21 @@ public class Post {
     public Post(String userName, String postTextContent) {
         this.userName = userName;
         this.postTextContent = postTextContent;
+        this.postId = UUID.randomUUID().toString();
+    }
+
+    public static Post fromJson(Map<String, Object> json){
+        String userName = (String)json.get("userName");
+        String postTextContent = (String)json.get("postTextContent");
+        Post p = new Post(userName, postTextContent);
+        return p;
+    }
+
+    public Map<String, Object> toJson(){
+        Map<String, Object> json = new HashMap<>();
+        json.put("userName", getUserName());
+        json.put("postTextContent", getPostTextContent());
+        return json;
     }
 
     public String getPostId() {

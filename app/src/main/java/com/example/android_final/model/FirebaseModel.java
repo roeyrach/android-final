@@ -24,6 +24,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -35,8 +38,7 @@ public class FirebaseModel {
     FirebaseStorage storage;
 
 
-
-    FirebaseModel(){
+    FirebaseModel() {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -47,17 +49,41 @@ public class FirebaseModel {
 
     }
 
+    public void getAllPosts(Model.GetAllPostsListener callback) {
+        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> list = new LinkedList<>();
+                if (task.isSuccessful()) {
+                    QuerySnapshot jsonsList = task.getResult();
+                    for (DocumentSnapshot json : jsonsList) {
+                        Post p = Post.fromJson(json.getData());
+                        list.add(p);
+                    }
+                }
+                callback.onComplete(list);
+            }
+        });
+    }
 
-    public void signInUser(String email, String password, Model.Listener<FirebaseUser> listener){
-        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(  new OnCompleteListener<AuthResult>() {
+    public void addPost(Post p, Model.AddPostListener listener) {
+        db.collection("posts").document(p.getPostId()).set(p.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onComplete();
+            }
+        });
+    }
+
+    public void signInUser(String email, String password, Model.Listener<FirebaseUser> listener) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d("Tag", "signIn success");
                     FirebaseUser user = auth.getCurrentUser();
                     listener.onComplete(user);
-                }
-                else{
+                } else {
                     Log.d("tag", "signIn failed");
                 }
             }
@@ -65,9 +91,9 @@ public class FirebaseModel {
 
     }
 
-    public void signUpUser(String email, String password, Model.Listener<FirebaseUser> listener){
+    public void signUpUser(String email, String password, Model.Listener<FirebaseUser> listener) {
         auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -86,28 +112,28 @@ public class FirebaseModel {
                 });
     }
 
-    public void addUser(User user, Model.Listener<Void> listener){
+    public void addUser(User user, Model.Listener<Void> listener) {
         db.collection(User.COLLECTION).document(user.getUserFirebaseID()).set(user.toJson())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Log.d("TAG","userAdded");
-                listener.onComplete(null);
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("TAG", "userAdded");
+                        listener.onComplete(null);
 
-            }
-        });
+                    }
+                });
     }
 
-    public void getUser(String uid, Model.Listener<User> listener){
+    public void getUser(String uid, Model.Listener<User> listener) {
         db.collection(User.COLLECTION).whereEqualTo("id", uid)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             QuerySnapshot jsonList = task.getResult();
-                            for (DocumentSnapshot json : jsonList){
+                            for (DocumentSnapshot json : jsonList) {
                                 User user = User.fromJson(json.getData());
-                                Log.d("TAG","User found");
+                                Log.d("TAG", "User found");
                                 listener.onComplete(user);
                             }
                         }
@@ -115,7 +141,7 @@ public class FirebaseModel {
                 });
     }
 
-    void uploadImage(String name, Bitmap bitmap, Model.Listener<String> listener){
+    void uploadImage(String name, Bitmap bitmap, Model.Listener<String> listener) {
         StorageReference storageRef = storage.getReference();
         StorageReference imagesRef = storageRef.child("images/" + name + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -141,7 +167,6 @@ public class FirebaseModel {
             }
         });
     }
-
 
 
 }

@@ -45,15 +45,16 @@ public class Model {
     }
 
     public void getAllPosts(GetAllPostsListener callback) {
-        executor.execute(() -> {
-            List<Post> data = localDb.postDao().getAll();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mainHandler.post(() -> callback.onComplete(data));
-        });
+//        executor.execute(() -> {
+//            List<Post> data = localDb.postDao().getAll();
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            mainHandler.post(() -> callback.onComplete(data));
+//        });
+        firebaseModel.getAllPosts(callback);
     }
 
     public interface AddPostListener {
@@ -61,15 +62,16 @@ public class Model {
     }
 
     public void addPost(Post p, AddPostListener listener) {
-        executor.execute(() -> {
-            localDb.postDao().insertAll(p);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mainHandler.post(() -> listener.onComplete());
-        });
+//        executor.execute(() -> {
+//            localDb.postDao().insertAll(p);
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            mainHandler.post(() -> listener.onComplete());
+//        });
+        firebaseModel.addPost(p, listener);
     }
 
 
