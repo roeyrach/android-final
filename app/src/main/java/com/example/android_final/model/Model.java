@@ -123,4 +123,10 @@ public class Model {
         firebaseModel.uploadImage(name, bitmap, listener);
     }
 
+    public void editUser(User user, Listener<Void> listener){
+        firebaseModel.addUser(user,(unused)->{
+            listener.onComplete(null);
+        });
+    }
+
 }
