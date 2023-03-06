@@ -3,7 +3,6 @@ package com.example.android_final.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -11,9 +10,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,12 +23,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class FirebaseModel {
 
@@ -49,8 +44,11 @@ public class FirebaseModel {
 
     }
 
-    public void getAllPosts(Model.GetAllPostsListener callback) {
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public void getAllPostsSince(Long since, Model.Listener<List<Post>> callback) {
+        db.collection(Post.COLLECTION)
+                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED,new Timestamp(since,0))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<Post> list = new LinkedList<>();
@@ -66,11 +64,11 @@ public class FirebaseModel {
         });
     }
 
-    public void addPost(Post p, Model.AddPostListener listener) {
-        db.collection("posts").document(p.getPostId()).set(p.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void addPost(Post p, Model.Listener<Void> listener) {
+        db.collection(Post.COLLECTION).document(p.getPostId()).set(p.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                listener.onComplete();
+                listener.onComplete(null);
             }
         });
     }

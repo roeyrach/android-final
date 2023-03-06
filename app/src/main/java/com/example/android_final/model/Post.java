@@ -1,8 +1,17 @@
 package com.example.android_final.model;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.android_final.MyApplication;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -27,17 +36,42 @@ public class Post {
         this.postId = UUID.randomUUID().toString();
     }
 
-    public static Post fromJson(Map<String, Object> json){
-        String userName = (String)json.get("userName");
-        String postTextContent = (String)json.get("postTextContent");
+    static final String USER_NAME = "userName";
+    static final String POST_TEXT_CONTEXT = "postTextContent";
+    static final String COLLECTION = "posts";
+    static final String LAST_UPDATED = "lastUpdated";
+    static final String LOCAL_LAST_UPDATED = "posts_local_last_update";
+
+    public static Post fromJson(Map<String, Object> json) {
+        String userName = (String) json.get(USER_NAME);
+        String postTextContent = (String) json.get(POST_TEXT_CONTEXT);
         Post p = new Post(userName, postTextContent);
+        try {
+            Timestamp time = (Timestamp) json.get(LAST_UPDATED);
+            p.setLastUpdated(time.getSeconds());
+        } catch (Exception e) {
+        }
+
         return p;
     }
 
-    public Map<String, Object> toJson(){
+    public static Long getLocalLastUpdate() {
+        SharedPreferences sharedPref = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return sharedPref.getLong(LOCAL_LAST_UPDATED, 0);
+    }
+
+    public static void setLocalLastUpdate(Long time) {
+        SharedPreferences sharedPref = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong(LOCAL_LAST_UPDATED,time);
+        editor.commit();
+    }
+
+    public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<>();
-        json.put("userName", getUserName());
-        json.put("postTextContent", getPostTextContent());
+        json.put(USER_NAME, getUserName());
+        json.put(POST_TEXT_CONTEXT, getPostTextContent());
+        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         return json;
     }
 
