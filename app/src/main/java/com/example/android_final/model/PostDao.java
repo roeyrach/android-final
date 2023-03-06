@@ -21,5 +21,5 @@ public interface PostDao {
     void insertAll(Post... posts);
 
     @Delete
-    void delete(Post student);
+    void delete(Post post);
 }

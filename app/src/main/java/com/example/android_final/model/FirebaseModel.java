@@ -68,6 +68,7 @@ public class FirebaseModel {
         db.collection(Post.COLLECTION).document(p.getPostId()).set(p.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                System.out.println(p.getPostId());
                 listener.onComplete(null);
             }
         });
