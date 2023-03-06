@@ -99,14 +99,26 @@ public class EditProfileFragment extends Fragment {
                mUser.getUserPet().setPetName(petN);
            }
 
-            if(isAvatarSelected){
+            if(isAvatarSelected) {
                 binding.avatarImg.setDrawingCacheEnabled(true);
                 binding.avatarImg.buildDrawingCache();
                 Bitmap bitmap = ((BitmapDrawable) binding.avatarImg.getDrawable()).getBitmap();
-                Model.instance().uploadImage(userN,bitmap, url-> {
+                Model.instance().uploadImage(userN, bitmap, url -> {
                     if (url != null) {
                         mUser.getUserPet().setPetImageUrl(url);
+                        Model.instance().editUser(mUser, (User) -> {
+                            Log.d("TAG", "userEdited");
+                            userViewModel.setCurrentUser(mUser);
+                            NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
+                        });
+
                     }
+                });
+            }else{
+                Model.instance().editUser(mUser, (User)->{
+                    Log.d("TAG", "userEdited");
+                    userViewModel.setCurrentUser(mUser);
+                    NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
                 });
             }
 
