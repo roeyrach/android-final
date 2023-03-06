@@ -41,18 +41,28 @@ public class Post {
     static final String COLLECTION = "posts";
     static final String LAST_UPDATED = "lastUpdated";
     static final String LOCAL_LAST_UPDATED = "posts_local_last_update";
+    static final String ID = "id";
 
     public static Post fromJson(Map<String, Object> json) {
         String userName = (String) json.get(USER_NAME);
         String postTextContent = (String) json.get(POST_TEXT_CONTEXT);
         Post p = new Post(userName, postTextContent);
+        p.setPostId((String) json.get(ID));
         try {
             Timestamp time = (Timestamp) json.get(LAST_UPDATED);
             p.setLastUpdated(time.getSeconds());
         } catch (Exception e) {
         }
-
         return p;
+    }
+
+    public Map<String, Object> toJson() {
+        Map<String, Object> json = new HashMap<>();
+        json.put(USER_NAME, getUserName());
+        json.put(POST_TEXT_CONTEXT, getPostTextContent());
+        json.put(ID, getPostId());
+        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
+        return json;
     }
 
     public static Long getLocalLastUpdate() {
@@ -65,14 +75,6 @@ public class Post {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong(LOCAL_LAST_UPDATED,time);
         editor.commit();
-    }
-
-    public Map<String, Object> toJson() {
-        Map<String, Object> json = new HashMap<>();
-        json.put(USER_NAME, getUserName());
-        json.put(POST_TEXT_CONTEXT, getPostTextContent());
-        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
-        return json;
     }
 
     public String getPostId() {
