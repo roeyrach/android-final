@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface PostDao {
     @Query("select * from Post")
-    List<Post> getAll();
+    LiveData<List<Post>> getAll();
 
     @Query("select * from Post where postId = :postId")
     Post getById(String postId);
@@ -21,5 +21,5 @@ public interface PostDao {
     void insertAll(Post... posts);
 
     @Delete
-    void delete(Post student);
+    void delete(Post post);
 }

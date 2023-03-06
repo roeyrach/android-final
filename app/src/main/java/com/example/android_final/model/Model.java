@@ -1,16 +1,14 @@
 package com.example.android_final.model;
 
-
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import android.util.Log;
-
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -30,68 +28,89 @@ public class Model {
     private Executor executor = Executors.newSingleThreadExecutor();
     private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    public interface Listener<T>{
+    public interface Listener<T> {
         void onComplete(T data);
     }
 
-    public static Model instance(){
+    public enum LoadingState {
+        LOADING,
+        NOT_LOADING
+    }
+
+    final public MutableLiveData<LoadingState> EventPostListLoadingState = new MutableLiveData<LoadingState>(LoadingState.NOT_LOADING);
+
+
+    public static Model instance() {
         return _instance;
     }
 
     AppLocalDbRepository localDb = AppLocalDb.getAppDb();
 
-    public interface GetAllPostsListener {
-        void onComplete(List<Post> data);
+    private LiveData<List<Post>> postList;
+
+    public LiveData<List<Post>> getAllPosts() {
+        if (postList == null) {
+            postList = localDb.postDao().getAll();
+            refreshAllPosts();
+        }
+        return postList;
     }
 
-    public void getAllPosts(GetAllPostsListener callback) {
-        executor.execute(() -> {
-            List<Post> data = localDb.postDao().getAll();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mainHandler.post(() -> callback.onComplete(data));
+    public void refreshAllPosts() {
+        EventPostListLoadingState.setValue(LoadingState.LOADING);
+        //get local last update
+        Long localLastUpdate = Post.getLocalLastUpdate();
+        //get all updated records from firebase since local last update
+        firebaseModel.getAllPostsSince(localLastUpdate, list -> {
+            executor.execute(() -> {
+                Log.d("TAG", "firebase return : " + list.size());
+                Long time = localLastUpdate;
+                for (Post p : list) {
+                    //insert new record into ROOM
+                    localDb.postDao().insertAll(p);
+                    if (time < p.getLastUpdated()) {
+                        time = p.getLastUpdated();
+                    }
+                }
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+
+                }
+                //update local last update
+                Post.setLocalLastUpdate(time);
+                EventPostListLoadingState.postValue(LoadingState.NOT_LOADING);
+            });
         });
     }
 
-    public interface AddPostListener {
-        void onComplete();
-    }
-
-    public void addPost(Post p, AddPostListener listener) {
-        executor.execute(() -> {
-            localDb.postDao().insertAll(p);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mainHandler.post(() -> listener.onComplete());
+    public void addPost(Post p, Listener<Void> listener) {
+        firebaseModel.addPost(p, (Void) -> {
+            refreshAllPosts();
+            listener.onComplete(null);
         });
+
     }
 
 
-
-    public void signUpUser(String name, String email ,String password,Pet pet, Listener<User> listener){
-        firebaseModel.signUpUser(email,password, (FireBaseUser)->{
+    public void signUpUser(String name, String email, String password, Pet pet, Listener<User> listener) {
+        firebaseModel.signUpUser(email, password, (FireBaseUser) -> {
             Log.d("TAG", FireBaseUser.getUid());
 
-            User user = new User(name,email,password,pet);
+            User user = new User(name, email, password, pet);
             user.setUserFirebaseID(FireBaseUser.getUid());
             Log.d("TAG", user.toJson().toString());
 
-            firebaseModel.addUser(user,(unused)->{
+            firebaseModel.addUser(user, (unused) -> {
                 listener.onComplete(user);
             });
         });
     }
 
-    public void signInUser(String email, String password, Listener<User> listener){
-        firebaseModel.signInUser(email,password,(FireBaseUser)->{
+    public void signInUser(String email, String password, Listener<User> listener) {
+        firebaseModel.signInUser(email, password, (FireBaseUser) -> {
             Log.d("TAG", FireBaseUser.getUid());
-            firebaseModel.getUser(FireBaseUser.getUid(), (User)->{
+            firebaseModel.getUser(FireBaseUser.getUid(), (User) -> {
                 Log.d("TAG", "userfound in Model");
                 listener.onComplete(User);
             });
@@ -100,8 +119,8 @@ public class Model {
 
     }
 
-    public void uploadImage(String name, Bitmap bitmap, Listener<String> listener){
-        firebaseModel.uploadImage(name,bitmap,listener);
+    public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
+        firebaseModel.uploadImage(name, bitmap, listener);
     }
 
 }

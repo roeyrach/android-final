@@ -1,9 +1,11 @@
 package com.example.android_final;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,20 +32,20 @@ import java.util.List;
 public class MainFeedFragment extends Fragment {
 
     FragmentMainFeedBinding binding;
-    List<Post> data = new LinkedList<>();
     PostRecyclerAdapter adapter;
+    PostsListFragmentViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        binding = FragmentMainFeedBinding.inflate(inflater,container,false);
+        binding = FragmentMainFeedBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         binding.postsRecyclerList.setHasFixedSize(true);
         binding.postsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostRecyclerAdapter(getLayoutInflater(), data);
+        adapter = new PostRecyclerAdapter(getLayoutInflater(), viewModel.getData().getValue());
         binding.postsRecyclerList.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new PostRecyclerAdapter.OnItemClickListener() {
@@ -54,22 +56,30 @@ public class MainFeedFragment extends Fragment {
         });
         View addButton = view.findViewById(R.id.main_feedFrag_add_btn);
         addButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_mainFeedFragment_to_addPostFragment));
+        binding.progressBar.setVisibility(View.GONE);
+        viewModel.getData().observe(getViewLifecycleOwner(), list -> {
+            adapter.setData(list);
 
+        });
+
+        Model.instance().EventPostListLoadingState.observe(getViewLifecycleOwner(), status -> {
+            binding.swipeRefresh.setRefreshing(status == Model.LoadingState.LOADING);
+        });
+
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            reloadData();
+        });
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        reloadData();
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(PostsListFragmentViewModel.class);
     }
 
-    void reloadData(){
-        binding.progressBar.setVisibility(View.VISIBLE);
-        Model.instance().getAllPosts((postsList)->{
-            data = postsList;
-            adapter.setData(data);
-            binding.progressBar.setVisibility(View.GONE);
-        });
+    void reloadData() {
+        Model.instance().refreshAllPosts();
+
     }
 }

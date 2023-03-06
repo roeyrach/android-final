@@ -7,12 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".MainFeedFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/posts_RecyclerList"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="408dp"
         android:layout_height="735dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="3dp" />
+        tools:layout_editor_absoluteY="3dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/posts_RecyclerList"
+            android:layout_width="408dp"
+            android:layout_height="735dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="3dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <ImageView
         android:id="@+id/main_feedFrag_add_btn"
@@ -20,7 +28,7 @@
         android:layout_height="52dp"
         android:layout_marginBottom="72dp"
         android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toBottomOf="@+id/posts_RecyclerList"
+        app:layout_constraintBottom_toBottomOf="@+id/swipeRefresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,8 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/posts_RecyclerList"
-        app:layout_constraintStart_toStartOf="@+id/posts_RecyclerList"
-        app:layout_constraintTop_toTopOf="@+id/posts_RecyclerList" />
+        app:layout_constraintEnd_toEndOf="@+id/swipeRefresh"
+        app:layout_constraintStart_toStartOf="@+id/swipeRefresh"
+        app:layout_constraintTop_toTopOf="@+id/swipeRefresh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

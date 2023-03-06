@@ -53,8 +53,8 @@ public class AddPostFragment extends Fragment {
             String un = binding.addPostUserName.getText().toString();
             String pc = binding.addPostPostContext.getText().toString();
             Post post = new Post(un,pc);
-            post.setPostId("1");
-            Model.instance().addPost(post,()->{
+            System.out.println(post.getPostId());
+            Model.instance().addPost(post,(unused)->{
                 Navigation.findNavController(view1).popBackStack();
             });
         });
