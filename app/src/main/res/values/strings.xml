@@ -43,4 +43,8 @@
     <string name="content_description_media">profileImg</string>
     <string name="profileTitle">User Name</string>
     <string name="profilePetAge">Pet Age</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="see_your_posts">See Your Posts</string>
+    <string name="avatarImg">Pet Image</string>
+    <string name="imgbtn">Image button</string>
 </resources>
