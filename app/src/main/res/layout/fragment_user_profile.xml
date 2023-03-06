@@ -66,16 +66,18 @@
                 android:layout_margin="8dp"
                 android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/edit_profile_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="string/action_1"
+                    android:text="@string/edit_profile"
                     style="?attr/borderlessButtonStyle"
                     />
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/user_posts_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="string/action_2"
+                    android:text="@string/see_your_posts"
                     style="?attr/borderlessButtonStyle"
                     />
             </LinearLayout>

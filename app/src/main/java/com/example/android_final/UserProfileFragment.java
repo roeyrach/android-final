@@ -7,6 +7,8 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.squareup.picasso.Picasso;
 
 
@@ -70,7 +72,9 @@ public class UserProfileFragment extends Fragment {
             userImg.setImageResource(R.drawable.avatar);
         }
          Log.d("TAG",mUser.getUserName());
-
+        binding.editProfileBtn.setOnClickListener(view -> {
+            NavHostFragment.findNavController(UserProfileFragment.this).navigate(R.id.action_userProfile_to_editProfileFragment);
+        });
 
 
 
