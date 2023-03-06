@@ -48,6 +48,7 @@ public class AnimalApiListFragment extends Fragment {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.removeItem(R.id.animalApiListFragment);
+
             }
 
             @Override
