@@ -1,5 +1,8 @@
 package com.example.android_final.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.HashMap;
@@ -7,7 +10,7 @@ import java.util.Map;
 
 public class Pet {
 
-
+    private int id;
 
     String petName;
     String petImageUrl;
@@ -81,4 +84,11 @@ public class Pet {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

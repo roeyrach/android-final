@@ -124,14 +124,12 @@ public class PetInfoFragment extends Fragment {
                         pet.setPetImageUrl(uri);
                     }
                     Model.instance().signUpUser(name, email, password, pet, (User) -> {
-                        userViewModel.setCurrentUser(User);
                         NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
                         binding.petInfoProgressbar.setVisibility(View.GONE);
                     });
                 });
             }else{
                 Model.instance().signUpUser(name, email ,password,pet, (User)->{
-                   userViewModel.setCurrentUser(User);
                     NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
                     binding.petInfoProgressbar.setVisibility(View.GONE);
 

@@ -1,12 +1,17 @@
 package com.example.android_final.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Entity(tableName = "users")
 public class User {
 
-
+    @PrimaryKey
+    @NonNull
     String userFirebaseID;
     String userName;
     String email;
