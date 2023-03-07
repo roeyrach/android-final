@@ -22,14 +22,11 @@ import android.widget.EditText;
 import com.example.android_final.databinding.FragmentAddPostBinding;
 import com.example.android_final.model.Model;
 import com.example.android_final.model.Post;
-import com.example.android_final.model.User;
 
 
 public class AddPostFragment extends Fragment {
 
     FragmentAddPostBinding binding;
-    UserViewModel userViewModel;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +49,10 @@ public class AddPostFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        userViewModel = UserViewModel.getInstance();
-        User mUser = userViewModel.getCurrentUser().getValue();
-        assert mUser != null;
         binding.addPostSave.setOnClickListener(view1->{
-            String userName = binding.addPostUserName.getEditText().getText().toString();
-            String postContext = binding.addPostPostContext.getEditText().getText().toString();
-            Post post = new Post(userName,postContext);
+            String un = binding.addPostUserName.getText().toString();
+            String pc = binding.addPostPostContext.getText().toString();
+            Post post = new Post(un,pc);
             System.out.println(post.getPostId());
             Model.instance().addPost(post,(unused)->{
                 Navigation.findNavController(view1).popBackStack();
