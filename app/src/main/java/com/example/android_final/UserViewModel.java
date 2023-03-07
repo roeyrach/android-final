@@ -6,10 +6,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.android_final.model.Model;
 import com.example.android_final.model.User;
 
 public class UserViewModel extends ViewModel {
-    private  MutableLiveData<User> currentUser = new MutableLiveData<>();
+    LiveData<User> user = Model.instance().getUser();
     private static final UserViewModel _instance = new UserViewModel();
 
     private UserViewModel(){
@@ -21,12 +22,7 @@ public class UserViewModel extends ViewModel {
     }
 
 
-    public void setCurrentUser(User user){
-        currentUser.setValue(user);
-
-    }
-
     public LiveData<User> getCurrentUser(){
-        return currentUser;
+        return user;
     }
 }
