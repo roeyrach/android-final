@@ -23,7 +23,6 @@ import com.example.android_final.databinding.FragmentMainFeedBinding;
 import com.example.android_final.databinding.FragmentSignInBinding;
 import com.example.android_final.model.Model;
 import com.example.android_final.model.Post;
-import com.example.android_final.model.User;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -35,7 +34,7 @@ public class MainFeedFragment extends Fragment {
     FragmentMainFeedBinding binding;
     PostRecyclerAdapter adapter;
     PostsListFragmentViewModel viewModel;
-    UserViewModel userViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +69,6 @@ public class MainFeedFragment extends Fragment {
         binding.swipeRefresh.setOnRefreshListener(() -> {
             reloadData();
         });
-
         return view;
     }
 
