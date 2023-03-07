@@ -38,8 +38,6 @@ public class SignInFragment extends Fragment {
         binding.signInBtn.setOnClickListener(view->{
             Model.instance().signInUser("Guy@guy.guy", "123456",(User)->{
                 Log.d("TAG", "userFound");
-                userViewModel.setCurrentUser(User);
-
                 NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
             });
 

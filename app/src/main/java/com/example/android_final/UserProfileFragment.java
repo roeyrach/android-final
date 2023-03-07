@@ -61,17 +61,18 @@ public class UserProfileFragment extends Fragment {
         petAge = binding.profilePetAge;
         userImg = binding.avatarImg;
         userViewModel = UserViewModel.getInstance();
-         User mUser = userViewModel.getCurrentUser().getValue();
-         userName.setText(mUser.getUserName());
-         petName.setText(mUser.getUserPet().getPetName());
-         petAge.setText(mUser.getUserPet().getPetAge());
-         String uri = mUser.getUserPet().getPetImageUrl();
-        if (uri  != null && uri.length() > 5) {
-            Picasso.get().load(uri).placeholder(R.drawable.avatar).into(userImg);
-        }else{
-            userImg.setImageResource(R.drawable.avatar);
-        }
-         Log.d("TAG",mUser.getUserName());
+        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),user -> {
+            Log.d("TAG", user.getUserName());
+            userName.setText(user.getUserName());
+             petName.setText(user.getUserPet().getPetName());
+             petAge.setText(user.getUserPet().getPetAge());
+             String uri = user.getUserPet().getPetImageUrl();
+            if (uri  != null && uri.length() > 5) {
+                Picasso.get().load(uri).placeholder(R.drawable.avatar).into(userImg);
+            }else{
+                userImg.setImageResource(R.drawable.avatar);
+            }
+        });
         binding.editProfileBtn.setOnClickListener(view -> {
             NavHostFragment.findNavController(UserProfileFragment.this).navigate(R.id.action_userProfile_to_editProfileFragment);
         });

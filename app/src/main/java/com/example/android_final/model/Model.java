@@ -48,6 +48,8 @@ public class Model {
 
     private LiveData<List<Post>> postList;
 
+    private LiveData<User> user;
+
     public LiveData<List<Post>> getAllPosts() {
         if (postList == null) {
             postList = localDb.postDao().getAll();
@@ -92,6 +94,13 @@ public class Model {
 
     }
 
+    public LiveData<User> getUser(){
+        if(user == null){
+            user = localDb.userDao().getUser();
+        }
+        return user;
+    }
+
 
     public void signUpUser(String name, String email, String password, Pet pet, Listener<User> listener) {
         firebaseModel.signUpUser(email, password, (FireBaseUser) -> {
@@ -102,6 +111,11 @@ public class Model {
             Log.d("TAG", user.toJson().toString());
 
             firebaseModel.addUser(user, (unused) -> {
+                executor.execute(()->{
+                    localDb.userDao().deleteAll();
+                    localDb.userDao().insertUser(user);
+
+                });
                 listener.onComplete(user);
             });
         });
@@ -112,6 +126,12 @@ public class Model {
             Log.d("TAG", FireBaseUser.getUid());
             firebaseModel.getUser(FireBaseUser.getUid(), (User) -> {
                 Log.d("TAG", "userfound in Model");
+               executor.execute(()->{
+                   localDb.userDao().deleteAll();
+                   localDb.userDao().insertUser(User);
+
+               });
+
                 listener.onComplete(User);
             });
 
@@ -119,12 +139,18 @@ public class Model {
 
     }
 
+
+
     public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
         firebaseModel.uploadImage(name, bitmap, listener);
     }
 
     public void editUser(User user, Listener<Void> listener){
         firebaseModel.addUser(user,(unused)->{
+            executor.execute(()->{
+                localDb.userDao().insertUser(user);
+
+            });
             listener.onComplete(null);
         });
     }

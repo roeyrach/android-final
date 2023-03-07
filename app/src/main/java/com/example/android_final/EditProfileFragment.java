@@ -108,7 +108,7 @@ public class EditProfileFragment extends Fragment {
                         mUser.getUserPet().setPetImageUrl(url);
                         Model.instance().editUser(mUser, (User) -> {
                             Log.d("TAG", "userEdited");
-                            userViewModel.setCurrentUser(mUser);
+//                            userViewModel.setCurrentUser(mUser);
                             NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
                         });
 
@@ -117,7 +117,7 @@ public class EditProfileFragment extends Fragment {
             }else{
                 Model.instance().editUser(mUser, (User)->{
                     Log.d("TAG", "userEdited");
-                    userViewModel.setCurrentUser(mUser);
+//                    userViewModel.setCurrentUser(mUser);
                     NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
                 });
             }
