@@ -75,7 +75,9 @@ public class UserProfileFragment extends Fragment {
         binding.editProfileBtn.setOnClickListener(view -> {
             NavHostFragment.findNavController(UserProfileFragment.this).navigate(R.id.action_userProfile_to_editProfileFragment);
         });
-
+        binding.userPostsBtn.setOnClickListener(view->{
+            NavHostFragment.findNavController(UserProfileFragment.this).navigate(R.id.action_userProfile_to_user_all_posts);
+        });
 
 
 

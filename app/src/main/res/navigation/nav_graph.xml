@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_userProfile_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_userProfile_to_user_all_posts"
+            app:destination="@id/user_all_posts" />
     </fragment>
     <action android:id="@+id/action_global_animalApiListFragment" app:destination="@id/animalApiListFragment"/>
     <action android:id="@+id/action_global_userProfile" app:destination="@id/userProfile"/>
@@ -89,6 +92,11 @@
         android:name="com.example.android_final.EditProfileFragment"
         android:label="Edit Profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/user_all_posts"
+        android:name="com.example.android_final.user_all_posts"
+        android:label="fragment_user_all_posts"
+        tools:layout="@layout/fragment_user_all_posts" />
 
 
 </navigation>
