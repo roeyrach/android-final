@@ -1,6 +1,7 @@
 package com.example.android_final.model;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 
 import androidx.room.Delete;
@@ -26,6 +27,8 @@ public interface UserDao {
 
     @Query("SELECT * FROM users LIMIT 1")
     LiveData<User> getUser();
+
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);

@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -46,7 +48,7 @@ public class SignInFragment extends Fragment {
                 return false;
             }
         },this, Lifecycle.State.RESUMED);
-       userViewModel = UserViewModel.getInstance();
+          userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
     }
 
@@ -59,7 +61,9 @@ public class SignInFragment extends Fragment {
             @Override
             public void onChanged(User user) {
                 if(user != null){
-                    NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
+                  NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
+
+
                 }
             }
         });
