@@ -63,16 +63,19 @@ public class UserProfileFragment extends Fragment {
         userImg = binding.avatarImg;
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),user -> {
-            Log.d("TAG", user.getUserName());
-            userName.setText(user.getUserName());
-             petName.setText(user.getUserPet().getPetName());
-             petAge.setText(user.getUserPet().getPetAge());
-             String uri = user.getUserPet().getPetImageUrl();
-            if (uri  != null && uri.length() > 5) {
-                Picasso.get().load(uri).placeholder(R.drawable.avatar).into(userImg);
-            }else{
-                userImg.setImageResource(R.drawable.avatar);
+            if (user != null){
+                Log.d("TAG", user.getUserName());
+                userName.setText(user.getUserName());
+                petName.setText(user.getUserPet().getPetName());
+                petAge.setText(user.getUserPet().getPetAge());
+                String uri = user.getUserPet().getPetImageUrl();
+                if (uri  != null && uri.length() > 5) {
+                    Picasso.get().load(uri).placeholder(R.drawable.avatar).into(userImg);
+                }else{
+                    userImg.setImageResource(R.drawable.avatar);
+                }
             }
+
         });
         binding.editProfileBtn.setOnClickListener(view -> {
             NavHostFragment.findNavController(UserProfileFragment.this).navigate(R.id.action_userProfile_to_editProfileFragment);
