@@ -48,4 +48,6 @@
     <string name="avatarImg">Pet Image</string>
     <string name="imgbtn">Image button</string>
     <string name="logOut">Log Out</string>
+    <string name="post_context">Post Context</string>
+
 </resources>
