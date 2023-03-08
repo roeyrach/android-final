@@ -123,7 +123,7 @@ public class FirebaseModel {
                     }
                 });
     }
-    //add a post to the user's posts list in the database while opening a new collection for the post
+
     public void addPostToUser(String uid, Post post, Model.Listener<Void> listener) {
         db.collection(User.COLLECTION).document(uid).collection(Post.COLLECTION).document(post.getPostId()).set(post.toJson())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,7 +136,25 @@ public class FirebaseModel {
                 });
     }
 
-
+    public void getAllPostsOfUser(String uid, Model.Listener<List<Post>> callback) {
+        db.collection(User.COLLECTION).document(uid).collection(Post.COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<Post> list = new LinkedList<>();
+                        if (task.isSuccessful()) {
+                            QuerySnapshot jsonsList = task.getResult();
+                            for (DocumentSnapshot json : jsonsList) {
+                                Post p = Post.fromJson(json.getData());
+                                list.add(p);
+                            }
+                        }
+                        callback.onComplete(list);
+                    }
+                });
+    }
+    
     public void getUser(String uid, Model.Listener<User> listener) {
         db.collection(User.COLLECTION).whereEqualTo("id", uid)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
