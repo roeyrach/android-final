@@ -42,11 +42,14 @@ public class Post {
     static final String LAST_UPDATED = "lastUpdated";
     static final String LOCAL_LAST_UPDATED = "posts_local_last_update";
     static final String ID = "id";
+    static final String AVATAR_URL = "avatarUrl";
 
     public static Post fromJson(Map<String, Object> json) {
         String userName = (String) json.get(USER_NAME);
         String postTextContent = (String) json.get(POST_TEXT_CONTEXT);
+        String avatarUrl = (String) json.get(AVATAR_URL);
         Post p = new Post(userName, postTextContent);
+        p.setAvatarUrl(avatarUrl);
         p.setPostId((String) json.get(ID));
         try {
             Timestamp time = (Timestamp) json.get(LAST_UPDATED);
@@ -62,6 +65,7 @@ public class Post {
         json.put(POST_TEXT_CONTEXT, getPostTextContent());
         json.put(ID, getPostId());
         json.put(LAST_UPDATED, FieldValue.serverTimestamp());
+        json.put(AVATAR_URL, getAvatarUrl());
         return json;
     }
 
