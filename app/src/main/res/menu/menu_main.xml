@@ -11,4 +11,9 @@
         android:title="Profile"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item android:id="@+id/LogOut"
+        android:title="@string/logOut"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>

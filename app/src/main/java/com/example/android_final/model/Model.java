@@ -155,4 +155,11 @@ public class Model {
         });
     }
 
+    public void signOut(){
+        executor.execute(()->{
+            localDb.userDao().deleteAll();
+
+        });
+    }
+
 }

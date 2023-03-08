@@ -1,6 +1,8 @@
 package com.example.android_final;
 
 import android.os.Bundle;
+
+import com.example.android_final.model.Model;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -54,7 +56,13 @@ private ActivityMainBinding binding;
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-       NavigationUI.onNavDestinationSelected(item,navController);
+        if (item.getItemId() == R.id.LogOut){
+            Model.instance().signOut();
+            navController.navigate(R.id.signInFragment);
+        }
+        else {
+            NavigationUI.onNavDestinationSelected(item,navController);
+        }
 
 
         return super.onOptionsItemSelected(item);
