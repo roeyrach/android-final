@@ -10,7 +10,7 @@ import com.example.android_final.model.Model;
 import com.example.android_final.model.User;
 
 public class UserViewModel extends ViewModel {
-    LiveData<User> user = Model.instance().getUser();
+    private LiveData<User> user = Model.instance().getUser();
     private static final UserViewModel _instance = new UserViewModel();
 
     private UserViewModel(){

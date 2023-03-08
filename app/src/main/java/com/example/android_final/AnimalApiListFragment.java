@@ -44,19 +44,17 @@ public class AnimalApiListFragment extends Fragment {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(AnimalApiFragmentViewModel.class);
         FragmentActivity parentActivity = getActivity();
-//        parentActivity.addMenuProvider(new MenuProvider() {
-//            @Override
-//            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-//                menu.removeItem(R.id.animalApiListFragment);
-//
-//
-//            }
-//
-//            @Override
-//            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-//                return false;
-//            }
-//        },this, Lifecycle.State.RESUMED);
+        parentActivity.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.findItem(R.id.animalApiListFragment).setVisible(false);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                return false;
+            }
+        },this, Lifecycle.State.RESUMED);
     }
 
 
