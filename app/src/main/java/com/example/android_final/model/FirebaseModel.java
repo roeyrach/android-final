@@ -154,7 +154,7 @@ public class FirebaseModel {
                     }
                 });
     }
-    
+
     public void getUser(String uid, Model.Listener<User> listener) {
         db.collection(User.COLLECTION).whereEqualTo("id", uid)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
