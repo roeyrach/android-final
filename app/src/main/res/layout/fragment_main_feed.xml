@@ -7,12 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".MainFeedFragment">
 
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
-        android:layout_width="408dp"
-        android:layout_height="735dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="3dp">
+        android:layout_width="413dp"
+        android:layout_height="728dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/posts_RecyclerList"
             android:layout_width="408dp"
@@ -21,18 +26,19 @@
             tools:layout_editor_absoluteY="3dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
     <ImageView
         android:id="@+id/main_feedFrag_add_btn"
         android:layout_width="57dp"
         android:layout_height="52dp"
         android:layout_marginBottom="72dp"
+        android:contentDescription="@android:string/untitled"
         android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toBottomOf="@+id/swipeRefresh"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -41,7 +47,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/swipeRefresh"
-        app:layout_constraintStart_toStartOf="@+id/swipeRefresh"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/swipeRefresh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
