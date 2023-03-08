@@ -94,6 +94,13 @@ public class Model {
 
     }
 
+    public void addPostToUser(String uid ,Post p, Listener<Void> listener) {
+        firebaseModel.addPostToUser(uid, p, (Void) -> {
+            listener.onComplete(null);
+        });
+
+    }
+
     public LiveData<User> getUser(){
         if(user == null){
             user = localDb.userDao().getUser();
