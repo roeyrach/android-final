@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import com.example.android_final.databinding.FragmentAddPostBinding;
 import com.example.android_final.model.Model;
 import com.example.android_final.model.Post;
 import com.example.android_final.model.User;
+import com.squareup.picasso.Picasso;
 
 
 public class AddPostFragment extends Fragment {
@@ -53,14 +55,19 @@ public class AddPostFragment extends Fragment {
         binding = FragmentAddPostBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         userViewModel = UserViewModel.getInstance();
-        User mUser = userViewModel.getCurrentUser().getValue();
-        assert mUser != null;
+        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),user -> {
+            binding.addPostUserName.getEditText().setText(user.getUserName());
+        });
+
         binding.addPostSave.setOnClickListener(view1->{
             String userName = binding.addPostUserName.getEditText().getText().toString();
             String postContext = binding.addPostPostContext.getEditText().getText().toString();
             Post post = new Post(userName,postContext);
             System.out.println(post.getPostId());
             Model.instance().addPost(post,(unused)->{
+
+            });
+            Model.instance().addPostToUser(userViewModel.getCurrentUser().getValue().getUserFirebaseID(),post,(unused)->{
                 Navigation.findNavController(view1).popBackStack();
             });
         });

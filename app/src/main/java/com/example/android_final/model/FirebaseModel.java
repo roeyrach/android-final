@@ -72,6 +72,7 @@ public class FirebaseModel {
                 listener.onComplete(null);
             }
         });
+
     }
 
     public void signInUser(String email, String password, Model.Listener<FirebaseUser> listener) {
@@ -122,6 +123,19 @@ public class FirebaseModel {
                     }
                 });
     }
+    //add a post to the user's posts list in the database while opening a new collection for the post
+    public void addPostToUser(String uid, Post post, Model.Listener<Void> listener) {
+        db.collection(User.COLLECTION).document(uid).collection(Post.COLLECTION).document(post.getPostId()).set(post.toJson())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("TAG", "postAdded");
+                        listener.onComplete(null);
+
+                    }
+                });
+    }
+
 
     public void getUser(String uid, Model.Listener<User> listener) {
         db.collection(User.COLLECTION).whereEqualTo("id", uid)
