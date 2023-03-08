@@ -64,7 +64,7 @@ public class AddPostFragment extends Fragment {
             String userName = binding.addPostUserName.getEditText().getText().toString();
             String postContext = binding.addPostPostContext.getEditText().getText().toString();
             Post post = new Post(userName,postContext);
-            System.out.println(post.getPostId());
+            post.setAvatarUrl(userViewModel.getCurrentUser().getValue().getUserPet().getPetImageUrl());
             Model.instance().addPost(post,(unused)->{
 
             });

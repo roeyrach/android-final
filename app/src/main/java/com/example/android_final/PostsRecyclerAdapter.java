@@ -10,20 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_final.model.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 class PostViewHolder extends RecyclerView.ViewHolder {
     TextView userName;
     TextView postTextContent;
+    ImageView avatarUrl;
     List<Post> data;
-    ImageView avatarImage;
 
     public PostViewHolder(@NonNull View itemView, PostRecyclerAdapter.OnItemClickListener listener, List<Post> data) {
         super(itemView);
         this.data = data;
         userName = itemView.findViewById(R.id.userName);
         postTextContent = itemView.findViewById(R.id.postTextContent);
+        avatarUrl = itemView.findViewById(R.id.avatarUrl);
 //        avatarImage = itemView.findViewById(R.id.);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +41,12 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     public void bind(Post post, int pos) {
         userName.setText(post.getUserName());
         postTextContent.setText(post.getPostTextContent());
+        if (post.getAvatarUrl() != null && post.getAvatarUrl().length() > 5) {
+            Picasso.get().load(post.getAvatarUrl()).into(avatarUrl);
+        }else{
+            avatarUrl.setImageResource(R.drawable.avatar);
+        }
+
     }
 }
 
