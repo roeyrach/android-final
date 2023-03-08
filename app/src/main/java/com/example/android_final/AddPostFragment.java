@@ -8,6 +8,7 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -54,7 +55,7 @@ public class AddPostFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        userViewModel = UserViewModel.getInstance();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),user -> {
             binding.addPostUserName.getEditText().setText(user.getUserName());
         });

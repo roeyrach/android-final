@@ -11,16 +11,6 @@ import com.example.android_final.model.User;
 
 public class UserViewModel extends ViewModel {
     private LiveData<User> user = Model.instance().getUser();
-    private static final UserViewModel _instance = new UserViewModel();
-
-    private UserViewModel(){
-
-    }
-
-    public static UserViewModel getInstance(){
-        return _instance;
-    }
-
 
     public LiveData<User> getCurrentUser(){
         return user;

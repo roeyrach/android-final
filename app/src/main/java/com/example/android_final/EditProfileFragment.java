@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -77,7 +78,7 @@ public class EditProfileFragment extends Fragment {
         userImg = binding.avatarImg;
         userName = binding.userName;
         petName = binding.petNameEt;
-        userViewModel = UserViewModel.getInstance();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         User mUser = userViewModel.getCurrentUser().getValue();
         assert mUser != null;
         String uri = mUser.getUserPet().getPetImageUrl();

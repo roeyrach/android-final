@@ -7,6 +7,7 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.squareup.picasso.Picasso;
@@ -60,7 +61,7 @@ public class UserProfileFragment extends Fragment {
         petName = binding.profilePetName;
         petAge = binding.profilePetAge;
         userImg = binding.avatarImg;
-        userViewModel = UserViewModel.getInstance();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),user -> {
             Log.d("TAG", user.getUserName());
             userName.setText(user.getUserName());
