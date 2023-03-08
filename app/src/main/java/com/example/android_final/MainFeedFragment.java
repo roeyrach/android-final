@@ -4,10 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.android_final.databinding.FragmentMainFeedBinding;
 import com.example.android_final.databinding.FragmentSignInBinding;
@@ -43,6 +50,8 @@ public class MainFeedFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentMainFeedBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+
 
         binding.postsRecyclerList.setHasFixedSize(true);
         binding.postsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -78,6 +87,16 @@ public class MainFeedFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(PostsListFragmentViewModel.class);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Disable the back arrow in the action bar
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     void reloadData() {
