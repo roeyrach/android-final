@@ -18,15 +18,15 @@ import java.util.concurrent.Executors;
 public class Model {
     private static final Model _instance = new Model();
 
-    private FirebaseModel firebaseModel = new FirebaseModel();
+    private final FirebaseModel firebaseModel = new FirebaseModel();
 
 
     private Model() {
     }
 
 
-    private Executor executor = Executors.newSingleThreadExecutor();
-    private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     public interface Listener<T> {
         void onComplete(T data);
@@ -37,7 +37,7 @@ public class Model {
         NOT_LOADING
     }
 
-    final public MutableLiveData<LoadingState> EventPostListLoadingState = new MutableLiveData<LoadingState>(LoadingState.NOT_LOADING);
+    final public MutableLiveData<LoadingState> EventPostListLoadingState = new MutableLiveData<>(LoadingState.NOT_LOADING);
 
 
     public static Model instance() {

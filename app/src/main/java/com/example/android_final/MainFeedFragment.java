@@ -51,7 +51,10 @@ public class MainFeedFragment extends Fragment {
         binding = FragmentMainFeedBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
 
         binding.postsRecyclerList.setHasFixedSize(true);
         binding.postsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -93,10 +96,7 @@ public class MainFeedFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Disable the back arrow in the action bar
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
+
     }
 
     void reloadData() {

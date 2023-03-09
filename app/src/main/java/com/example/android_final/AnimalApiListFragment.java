@@ -1,17 +1,15 @@
 package com.example.android_final;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.os.Build;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -26,10 +24,9 @@ import android.view.ViewGroup;
 
 import com.example.android_final.databinding.FragmentAnimalApiListBinding;
 import com.example.android_final.model.Animal;
-import com.example.android_final.model.AnimalApi;
 import com.example.android_final.model.AnimalModel;
 
-import java.util.List;
+
 import java.util.Objects;
 
 
@@ -44,6 +41,7 @@ public class AnimalApiListFragment extends Fragment {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(AnimalApiFragmentViewModel.class);
         FragmentActivity parentActivity = getActivity();
+        assert parentActivity != null;
         parentActivity.addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -61,7 +59,7 @@ public class AnimalApiListFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAnimalApiListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
@@ -71,35 +69,26 @@ public class AnimalApiListFragment extends Fragment {
         adapter = new AnimalRecyclerAdapter(getLayoutInflater(),viewModel.getData().getValue());
         binding.animalApiRecyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new AnimalRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int pos) {
-                Log.d("TAG", "Row was clicked " + pos);
-                Animal animal = Objects.requireNonNull(viewModel.getData().getValue()).get(pos);
-//                AnimalApiListFragmentDerction
-
-            }
+        adapter.setOnItemClickListener(pos -> {
+            Log.d("TAG", "Row was clicked " + pos);
+            Animal animal = Objects.requireNonNull(viewModel.getData().getValue()).get(pos);
         });
-
-        binding.animalProgressBar.setVisibility(View.GONE);
 
         viewModel.getData().observe(getViewLifecycleOwner(), list->{
                 adapter.setData(list);
         });
 
-        AnimalModel.instance().EventStudentsListLoadingState.observe(getViewLifecycleOwner(),status->{
+        AnimalModel.instance().EventAnimalListLoadingState.observe(getViewLifecycleOwner(),status->{
             binding.swipeRefresh.setRefreshing(status == AnimalModel.LoadingState.LOADING);
         });
 
-//        binding.swipeRefresh.setOnRefreshListener(()-> {
-////            reloadData();
-//        });
+        binding.swipeRefresh.setOnRefreshListener(()-> {
+         binding.swipeRefresh.setRefreshing(false);
+        });
 
 
     return view;
     }
 
-     void reloadData() {
-        AnimalModel.instance().refreshAllAnimals();
-    }
+
 }
