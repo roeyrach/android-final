@@ -7,54 +7,98 @@
     android:layout_height="match_parent"
     tools:context=".AddPostFragment">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/avatarImg"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/avatarImg"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/avatar" />
+
+            <ImageButton
+                android:id="@+id/galleryButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/imgbtn"
+                android:src="@drawable/ic_baseline_image_search_24" />
+
+            <ImageButton
+                android:id="@+id/cameraButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/imgbtn"
+                android:src="@drawable/ic_baseline_photo_camera_24" />
+
+        </FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="411dp"
+            android:layout_height="727dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/add_post_userName"
-                android:layout_width="376dp"
-                android:layout_height="54dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.567"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.112" >
+                app:layout_constraintVertical_bias="0.112">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_post_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="379dp"
+                    android:layout_height="61dp"
+                    android:layout_marginTop="300dp"
                     android:hint="@string/userNameInput"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/add_post_postContext"
-                android:layout_width="376dp"
-                android:layout_height="54dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.571"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.507" >
+                app:layout_constraintVertical_bias="0.507">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_post_post_context"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="379dp"
+                    android:layout_height="61dp"
+                    android:layout_marginTop="200dp"
                     android:hint="@string/post_context"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -63,7 +107,6 @@
                 android:id="@+id/add_post_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
                 android:text="save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +119,6 @@
                 android:id="@+id/add_post_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
                 android:text="cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +127,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/add_post_postContext"
                 app:layout_constraintVertical_bias="0.611" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

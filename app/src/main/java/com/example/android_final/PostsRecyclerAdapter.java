@@ -18,6 +18,7 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     TextView userName;
     TextView postTextContent;
     ImageView avatarUrl;
+    ImageView imageUrl;
     List<Post> data;
 
     public PostViewHolder(@NonNull View itemView, PostRecyclerAdapter.OnItemClickListener listener, List<Post> data) {
@@ -26,7 +27,7 @@ class PostViewHolder extends RecyclerView.ViewHolder {
         userName = itemView.findViewById(R.id.userName);
         postTextContent = itemView.findViewById(R.id.postTextContent);
         avatarUrl = itemView.findViewById(R.id.avatarUrl);
-//        avatarImage = itemView.findViewById(R.id.);
+        imageUrl = itemView.findViewById(R.id.post_list_row_image);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +46,11 @@ class PostViewHolder extends RecyclerView.ViewHolder {
             Picasso.get().load(post.getAvatarUrl()).into(avatarUrl);
         }else{
             avatarUrl.setImageResource(R.drawable.avatar);
+        }
+        if (post.getImageUrl() != null && post.getImageUrl().length() > 5) {
+            Picasso.get().load(post.getImageUrl()).into(imageUrl);
+        }else{
+            imageUrl.setImageResource(R.drawable.avatar);
         }
 
     }
