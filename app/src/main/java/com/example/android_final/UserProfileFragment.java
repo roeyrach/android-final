@@ -66,8 +66,9 @@ public class UserProfileFragment extends Fragment {
             if (user != null){
                 Log.d("TAG", user.getUserName());
                 userName.setText(user.getUserName());
-                petName.setText(user.getUserPet().getPetName());
-                petAge.setText(user.getUserPet().getPetAge());
+
+                petName.append("\t\t" +  user.getUserPet().getPetName());
+                petAge.append("\t\t" + user.getUserPet().getPetAge());
                 String uri = user.getUserPet().getPetImageUrl();
                 if (uri  != null && uri.length() > 5) {
                     Picasso.get().load(uri).placeholder(R.drawable.avatar).into(userImg);
