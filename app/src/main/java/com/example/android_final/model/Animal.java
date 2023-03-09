@@ -1,12 +1,6 @@
 package com.example.android_final.model;
-
-import android.util.Log;
-
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-import java.util.Map;
 
 public class Animal {
     @SerializedName("name")
