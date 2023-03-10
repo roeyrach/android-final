@@ -2,6 +2,7 @@ package com.example.android_final.model;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class FirebaseModel {
                         Post p = Post.fromJson(json.getData());
                         list.add(p);
                     }
+                    Collections.reverse(list);
                 }
                 callback.onComplete(list);
             }

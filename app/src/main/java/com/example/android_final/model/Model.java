@@ -169,4 +169,7 @@ public class Model {
         });
     }
 
+    public void getAllUserPosts(String uid, Listener<List<Post>> listener){
+        firebaseModel.getAllPostsOfUser(uid, listener);
+    }
 }
