@@ -58,7 +58,7 @@ public class MainFeedFragment extends Fragment {
 
         binding.postsRecyclerList.setHasFixedSize(true);
         binding.postsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostRecyclerAdapter(getLayoutInflater(), viewModel.getData().getValue());
+        adapter = new PostRecyclerAdapter(getLayoutInflater(), viewModel.getData().getValue(), "MainFeedFragment");
         binding.postsRecyclerList.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new PostRecyclerAdapter.OnItemClickListener() {
