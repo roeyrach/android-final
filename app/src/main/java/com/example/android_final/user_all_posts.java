@@ -43,7 +43,7 @@ public class user_all_posts extends Fragment {
 
         binding.userAllPostsPostsRecyclerList.setHasFixedSize(true);
         binding.userAllPostsPostsRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostRecyclerAdapter(getLayoutInflater(), viewModel.getData().getValue());
+        adapter = new PostRecyclerAdapter(getLayoutInflater(), viewModel.getData().getValue(), "user_all_posts");
         binding.userAllPostsPostsRecyclerList.setAdapter(adapter);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);

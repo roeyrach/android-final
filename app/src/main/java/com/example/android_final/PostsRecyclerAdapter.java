@@ -21,13 +21,18 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     ImageView imageUrl;
     List<Post> data;
 
-    public PostViewHolder(@NonNull View itemView, PostRecyclerAdapter.OnItemClickListener listener, List<Post> data) {
+    public PostViewHolder(@NonNull View itemView, PostRecyclerAdapter.OnItemClickListener listener, List<Post> data, String fragmentName) {
         super(itemView);
         this.data = data;
         userName = itemView.findViewById(R.id.userName);
         postTextContent = itemView.findViewById(R.id.postTextContent);
         avatarUrl = itemView.findViewById(R.id.avatarUrl);
         imageUrl = itemView.findViewById(R.id.post_list_row_image);
+        if (fragmentName.equals("MainFeedFragment")) {
+            itemView.findViewById(R.id.post_list_row_edit_post).setVisibility(View.GONE);
+        } else {
+            itemView.findViewById(R.id.post_list_row_edit_post).setVisibility(View.VISIBLE);
+        }
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,15 +71,17 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
     LayoutInflater inflater;
     List<Post> data;
+    String fragmentName;
 
     public void setData(List<Post> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
-    public PostRecyclerAdapter(LayoutInflater inflater, List<Post> data) {
+    public PostRecyclerAdapter(LayoutInflater inflater, List<Post> data,String fragmentName) {
         this.inflater = inflater;
         this.data = data;
+        this.fragmentName = fragmentName;
     }
 
     void setOnItemClickListener(OnItemClickListener listener) {
@@ -85,7 +92,7 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.post_list_row, parent, false);
-        PostViewHolder holder = new PostViewHolder(view, listener, data);
+        PostViewHolder holder = new PostViewHolder(view, listener, data, fragmentName);
         return holder;
     }
 

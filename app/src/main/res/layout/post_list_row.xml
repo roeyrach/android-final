@@ -7,8 +7,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        android:layout_width="409dp"
-        android:layout_height="343dp"
+        android:layout_width="410dp"
+        android:layout_height="418dp"
         android:layout_margin="8dp"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,14 +28,14 @@
                 android:id="@+id/post_list_row_image"
                 android:layout_width="match_parent"
 
-                android:layout_height="205dp"
+                android:layout_height="247dp"
                 android:contentDescription="@string/content_description_media"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars[2]" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="214dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -74,6 +74,12 @@
                     app:layout_constraintHorizontal_bias="0.508"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/avatarUrl" />
+
+                <Button
+                    android:id="@+id/post_list_row_edit_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="edit" />
 
             </LinearLayout>
 
