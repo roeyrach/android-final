@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".user_all_posts">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <ScrollView
         android:id="@+id/user_all_posts_swipeRefresh"
         android:layout_width="413dp"
         android:layout_height="728dp"
@@ -19,10 +19,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_all_posts_posts_RecyclerList"
             android:layout_width="408dp"
-            android:layout_height="735dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="3dp" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_height="735dp" />
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
