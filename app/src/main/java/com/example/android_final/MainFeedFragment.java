@@ -65,6 +65,8 @@ public class MainFeedFragment extends Fragment {
             @Override
             public void onItemClick(int pos) {
                 Log.d("TAG", "Row was clicked: " + pos);
+                Post post = viewModel.getData().getValue().get(pos);
+                Log.d("TAG", "onItemClick: " + post.getPostTextContent());
             }
         });
         View addButton = view.findViewById(R.id.main_feedFrag_add_btn);
