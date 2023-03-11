@@ -56,14 +56,13 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSignInBinding.inflate(inflater, container, false);
+        AlertDialogFragment dialog = new AlertDialogFragment();
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 if(user != null){
                   NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
-
-
                 }
             }
         });
@@ -72,10 +71,27 @@ public class SignInFragment extends Fragment {
             NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_signUpFragment);
         });
         binding.signInBtn.setOnClickListener(view->{
-            Model.instance().signInUser("Guy@guy.guy", "123456",(User)->{
-                Log.d("TAG", "userFound");
-                NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
-            });
+          String userName = binding.editTextUserName.getEditText().getText().toString();
+          String password = binding.signInPassword.getEditableText().toString();
+            if(userName.equals("") || password.equals("")){
+                dialog.setMessage("Empty input");
+                dialog.show(getChildFragmentManager(),"TAG");
+            }
+            else {
+                binding.progressBar2.setVisibility(View.VISIBLE);
+                Model.instance().signInUser(userName, password,(User)->{
+                    if (User != null){
+                        Log.d("TAG", "userFound");
+                        NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_mainFeedFragment);
+                    }
+                    else {
+                        binding.progressBar2.setVisibility(View.INVISIBLE);
+                        dialog.setMessage("Email or password are incorrect");
+                        dialog.show(getChildFragmentManager(),"TAG");
+                    }
+                });
+            }
+
 
         });
         // Inflate the layout for this fragment
