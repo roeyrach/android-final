@@ -21,6 +21,7 @@ import com.example.android_final.databinding.FragmentUserAllPostsBinding;
 import com.example.android_final.model.Model;
 import com.example.android_final.model.Post;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -52,7 +53,6 @@ public class UserAllPosts extends Fragment {
             @Override
             public void onItemClick(int pos) {
                 Post post = adapter.data.get(pos);
-                List<Post> posts = adapter.data;
                 Log.d("TAG", "onItemClick: " + post.getPostId());
                 Log.d("TAG", "onItemClick: " + post.getPostTextContent());
                 UserAllPostsDirections.ActionUserAllPostsToEditPost action = UserAllPostsDirections.actionUserAllPostsToEditPost();

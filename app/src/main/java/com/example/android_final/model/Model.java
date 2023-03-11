@@ -1,6 +1,7 @@
 package com.example.android_final.model;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 

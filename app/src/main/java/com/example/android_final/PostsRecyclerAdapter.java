@@ -17,6 +17,8 @@ import com.example.android_final.databinding.FragmentUserProfileBinding;
 import com.example.android_final.model.Post;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 class PostViewHolder extends RecyclerView.ViewHolder {
@@ -84,6 +86,7 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
     public void setData(List<Post> data) {
         this.data = data;
+        Collections.reverse(data);
         notifyDataSetChanged();
     }
 
