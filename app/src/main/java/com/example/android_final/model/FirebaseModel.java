@@ -60,7 +60,7 @@ public class FirebaseModel {
                         Post p = Post.fromJson(json.getData());
                         list.add(p);
                     }
-                    Collections.reverse(list);
+
                 }
                 callback.onComplete(list);
             }
