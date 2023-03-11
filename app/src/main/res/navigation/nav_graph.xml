@@ -94,9 +94,25 @@
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/user_all_posts"
-        android:name="com.example.android_final.user_all_posts"
+        android:name="com.example.android_final.UserAllPosts"
         android:label="fragment_user_all_posts"
-        tools:layout="@layout/fragment_user_all_posts" />
+        tools:layout="@layout/fragment_user_all_posts" >
+        <action
+            android:id="@+id/action_user_all_posts_to_editPost"
+            app:destination="@id/editPost" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPost"
+        android:name="com.example.android_final.EditPost"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post"
+        >
+        <argument
+            android:name="postId"
+            app:argType="string"
+            android:defaultValue="string"
+            />
+    </fragment>
 
 
 </navigation>

@@ -3,12 +3,17 @@ package com.example.android_final;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android_final.databinding.FragmentEditPostBinding;
+import com.example.android_final.databinding.FragmentUserAllPostsBinding;
+import com.example.android_final.databinding.FragmentUserProfileBinding;
 import com.example.android_final.model.Post;
 import com.squareup.picasso.Picasso;
 
@@ -19,32 +24,36 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     TextView postTextContent;
     ImageView avatarUrl;
     ImageView imageUrl;
+    Button editPost;
     List<Post> data;
 
-    public PostViewHolder(@NonNull View itemView, PostRecyclerAdapter.OnItemClickListener listener, List<Post> data, String fragmentName) {
+    public PostViewHolder(@NonNull View itemView, PostRecyclerAdapter.OnItemClickListener listener,
+                          List<Post> data, String fragmentName) {
         super(itemView);
         this.data = data;
         userName = itemView.findViewById(R.id.userName);
         postTextContent = itemView.findViewById(R.id.postTextContent);
         avatarUrl = itemView.findViewById(R.id.avatarUrl);
         imageUrl = itemView.findViewById(R.id.post_list_row_image);
+        editPost = itemView.findViewById(R.id.post_list_row_edit_post);
         if (fragmentName.equals("MainFeedFragment")) {
-            itemView.findViewById(R.id.post_list_row_edit_post).setVisibility(View.GONE);
+            editPost.setVisibility(View.GONE);
         } else {
-            itemView.findViewById(R.id.post_list_row_edit_post).setVisibility(View.VISIBLE);
-        }
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = getAdapterPosition();
-                if (listener != null) {
-                    listener.onItemClick(pos);
+            editPost.setVisibility(View.VISIBLE);
+            editPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = editPost.getTag() != null ? (int) editPost.getTag() : -1;
+                    if (listener != null) {
+                        listener.onItemClick(pos);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void bind(Post post, int pos) {
+        editPost.setTag(pos);
         userName.setText(post.getUserName());
         postTextContent.setText(post.getPostTextContent());
         if (post.getAvatarUrl() != null && post.getAvatarUrl().length() > 5) {
@@ -61,9 +70,9 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     }
 }
 
-
 class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     OnItemClickListener listener;
+
 
     public static interface OnItemClickListener {
         void onItemClick(int pos);
