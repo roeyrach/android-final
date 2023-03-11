@@ -49,5 +49,9 @@
     <string name="imgbtn">Image button</string>
     <string name="post_context">Post Context</string>
     <string name="logOut">Log Out</string>
+
     <string name="edit_post_avatarImg">Log Out</string>
+
+    <string name="sign_id">Sign In</string>
+
 </resources>

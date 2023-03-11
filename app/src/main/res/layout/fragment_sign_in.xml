@@ -10,7 +10,7 @@
         android:id="@+id/sign_in_frag_sign_in_text"
         android:layout_width="102dp"
         android:layout_height="45dp"
-        android:text="Sign In"
+        android:text="@string/sign_id"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextUserName"
         android:layout_width="327dp"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextPassword"
         android:layout_width="327dp"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,5 +135,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.764" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.579" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
