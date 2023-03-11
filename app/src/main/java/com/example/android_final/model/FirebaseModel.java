@@ -87,7 +87,7 @@ public class FirebaseModel {
                     FirebaseUser user = auth.getCurrentUser();
                     listener.onComplete(user);
                 } else {
-                    Log.d("tag", "signIn failed");
+                    listener.onComplete(null);
                 }
             }
         });
@@ -108,6 +108,7 @@ public class FirebaseModel {
 
                         } else {
                             // If sign in fails, display a message to the user.
+                            listener.onComplete(null);
                             Log.d("TAG", "createUserWithEmail:failure", task.getException());
 
                         }

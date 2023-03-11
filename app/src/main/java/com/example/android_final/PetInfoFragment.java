@@ -126,7 +126,7 @@ public class PetInfoFragment extends Fragment {
         });
 
         binding.saveBtn.setOnClickListener(view -> {
-            binding.petInfoProgressbar.setVisibility(View.VISIBLE);
+            AlertDialogFragment dialog = new AlertDialogFragment();
             String name = args.getUserName();
             String email = args.getUserEmail();
             String password = args.getUserPassword();
@@ -134,27 +134,48 @@ public class PetInfoFragment extends Fragment {
             String petGender = binding.spinner.getSelectedItem().toString();
             String petAge = Objects.requireNonNull(binding.petAgeEt.getText()).toString();
             String url = "";
-            Pet pet = new Pet(petName,url,petAge,petGender);
-            if(isAvatarSelected){
-                binding.avatarImg.setDrawingCacheEnabled(true);
-                binding.avatarImg.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) binding.avatarImg.getDrawable()).getBitmap();
-                Model.instance().uploadImage(name,bitmap,uri-> {
-                    if (uri != null) {
-                        pet.setPetImageUrl(uri);
-                    }
-                    Model.instance().signUpUser(name, email, password, pet, (User) -> {
-                        NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
-                        binding.petInfoProgressbar.setVisibility(View.GONE);
-                    });
-                });
-            }else{
-                Model.instance().signUpUser(name, email ,password,pet, (User)->{
-                    NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
-                    binding.petInfoProgressbar.setVisibility(View.GONE);
-
-                });
+            if (petName.equals("") || petAge.equals("") || petGender.equals("Select Gender")){
+                dialog.setMessage("Invalid inputs");
+                dialog.show(getChildFragmentManager(),"TAG");
             }
+            else{
+                binding.petInfoProgressbar.setVisibility(View.VISIBLE);
+
+                Pet pet = new Pet(petName,url,petAge,petGender);
+                if(isAvatarSelected){
+                    binding.avatarImg.setDrawingCacheEnabled(true);
+                    binding.avatarImg.buildDrawingCache();
+                    Bitmap bitmap = ((BitmapDrawable) binding.avatarImg.getDrawable()).getBitmap();
+                    Model.instance().uploadImage(name,bitmap,uri-> {
+                        if (uri != null) {
+                            pet.setPetImageUrl(uri);
+                        }
+                        Model.instance().signUpUser(name, email, password, pet, (User) -> {
+                            if(User != null){
+                                NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+                            }
+                            else {
+                                dialog.setMessage("cannot sign up");
+                                dialog.show(getChildFragmentManager(),"TAG");
+                            }
+                            binding.petInfoProgressbar.setVisibility(View.INVISIBLE);
+                        });
+                    });
+                }else{
+                    Model.instance().signUpUser(name, email ,password,pet, (User)->{
+                        if (User != null){
+                            NavHostFragment.findNavController(PetInfoFragment.this).navigate(R.id.action_petInfoFragment_to_mainFeedFragment);
+                        } else {
+                            dialog.setMessage("cannot sign up");
+                            dialog.show(getChildFragmentManager(),"TAG");
+                        }
+
+                        binding.petInfoProgressbar.setVisibility(View.INVISIBLE);
+
+                    });
+                }
+            }
+
 
 
         });
