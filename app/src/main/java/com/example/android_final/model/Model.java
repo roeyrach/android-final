@@ -112,36 +112,49 @@ public class Model {
 
     public void signUpUser(String name, String email, String password, Pet pet, Listener<User> listener) {
         firebaseModel.signUpUser(email, password, (FireBaseUser) -> {
-            Log.d("TAG", FireBaseUser.getUid());
+            if (FireBaseUser != null){
+                Log.d("TAG", FireBaseUser.getUid());
 
-            User user = new User(name, email, password, pet);
-            user.setUserFirebaseID(FireBaseUser.getUid());
-            Log.d("TAG", user.toJson().toString());
+                User user = new User(name, email, password, pet);
+                user.setUserFirebaseID(FireBaseUser.getUid());
+                Log.d("TAG", user.toJson().toString());
 
-            firebaseModel.addUser(user, (unused) -> {
-                executor.execute(()->{
-                    localDb.userDao().deleteAll();
-                    localDb.userDao().insertUser(user);
+                firebaseModel.addUser(user, (unused) -> {
+                    executor.execute(()->{
+                        localDb.userDao().deleteAll();
+                        localDb.userDao().insertUser(user);
 
+                    });
+                    listener.onComplete(user);
                 });
-                listener.onComplete(user);
-            });
+            }
+            else {
+                listener.onComplete(null);
+            }
+
         });
     }
 
     public void signInUser(String email, String password, Listener<User> listener) {
         firebaseModel.signInUser(email, password, (FireBaseUser) -> {
-            Log.d("TAG", FireBaseUser.getUid());
-            firebaseModel.getUser(FireBaseUser.getUid(), (User) -> {
-                Log.d("TAG", "userfound in Model");
-               executor.execute(()->{
-                   localDb.userDao().deleteAll();
-                   localDb.userDao().insertUser(User);
+            if (FireBaseUser != null)
+            {
+                Log.d("TAG", FireBaseUser.getUid());
+                firebaseModel.getUser(FireBaseUser.getUid(), (User) -> {
+                    Log.d("TAG", "userfound in Model");
+                    executor.execute(()->{
+                        localDb.userDao().deleteAll();
+                        localDb.userDao().insertUser(User);
 
-               });
+                    });
 
-                listener.onComplete(User);
-            });
+                    listener.onComplete(User);
+                });
+            }
+            else {
+                listener.onComplete(null);
+            }
+
 
         });
 

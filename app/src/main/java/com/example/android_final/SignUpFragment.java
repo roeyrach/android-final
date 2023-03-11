@@ -57,20 +57,25 @@ public class SignUpFragment extends Fragment {
 
         binding.saveBtn.setOnClickListener(view -> {
             AlertDialogFragment dialog = new AlertDialogFragment();
-
-          String user = Objects.requireNonNull(binding.usernameEt.getText()).toString();
+            String user = Objects.requireNonNull(binding.usernameEt.getText()).toString();
             String email = Objects.requireNonNull(binding.emailEt.getText()).toString();
             String password = Objects.requireNonNull(binding.passwordEt.getText()).toString();
             String rePassword = Objects.requireNonNull(binding.rePasswordEt.getText()).toString();
-            if(password.length() >5 &&  password.equals(rePassword)){
-                ActionSignUpFragmentToPetInfoFragment action = SignUpFragmentDirections.actionSignUpFragmentToPetInfoFragment();
-                action.setUserName(user).setUserEmail(email).setUserPassword(password);
-                NavHostFragment.findNavController(SignUpFragment.this).navigate(action);
-            }else{
-                dialog.setMessage("Password does not match");
+            if (user.equals("") || email.equals("")){
+                dialog.setMessage("Invalid user name or email");
                 dialog.show(getChildFragmentManager(),"TAG");
-                Log.d("Tag", "password does not  match");
             }
+           else{
+                if(password.length() >5 &&  password.equals(rePassword)){
+                    ActionSignUpFragmentToPetInfoFragment action = SignUpFragmentDirections.actionSignUpFragmentToPetInfoFragment();
+                    action.setUserName(user).setUserEmail(email).setUserPassword(password);
+                    NavHostFragment.findNavController(SignUpFragment.this).navigate(action);
+                }else{
+                    dialog.setMessage("Password does not match");
+                    dialog.show(getChildFragmentManager(),"TAG");
+                }
+            }
+
 
         });
 
