@@ -22,7 +22,7 @@
                 android:id="@+id/avatarImg"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:contentDescription="string/content_description_media"
+                android:contentDescription="@string/avatarImg"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/avatar" />
 
@@ -37,7 +37,7 @@
                     android:id="@+id/animalName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="string/title"
+                    android:text="@string/animalName"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
                 <TextView
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="string/secondary_text"
+                    android:text="@string/playfulness"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="string/supporting_text"
+                    android:text="@string/goodWithKids"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />
