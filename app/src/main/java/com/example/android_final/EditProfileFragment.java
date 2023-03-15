@@ -89,41 +89,47 @@ public class EditProfileFragment extends Fragment {
         }
 
         binding.saveBtn.setOnClickListener(view -> {
+            AlertDialogFragment dialog = new AlertDialogFragment();
             String userN = userName.getText().toString();
             String petN = petName.getText().toString();
-            if (!userN.equals(""))
-            {
-                mUser.setUserName(userN);
+            if(userN.equals("") && petN.equals("")){
+                dialog.setMessage("Empty input");
+                dialog.show(getChildFragmentManager(),"TAG");
             }
-           if (!petN.equals(""))
-           {
-               mUser.getUserPet().setPetName(petN);
-           }
+            else{
+                if (!userN.equals(""))
+                {
+                    mUser.setUserName(userN);
+                }
+                if (!petN.equals(""))
+                {
+                    mUser.getUserPet().setPetName(petN);
+                }
 
-            if(isAvatarSelected) {
-                binding.avatarImg.setDrawingCacheEnabled(true);
-                binding.avatarImg.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) binding.avatarImg.getDrawable()).getBitmap();
-                Model.instance().uploadImage(userN, bitmap, url -> {
-                    if (url != null) {
-                        mUser.getUserPet().setPetImageUrl(url);
-                        Model.instance().editUser(mUser, (User) -> {
-                            Log.d("TAG", "userEdited");
-//                            userViewModel.setCurrentUser(mUser);
-                            NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
-                        });
+                if(isAvatarSelected) {
+                    binding.avatarImg.setDrawingCacheEnabled(true);
+                    binding.avatarImg.buildDrawingCache();
+                    Bitmap bitmap = ((BitmapDrawable) binding.avatarImg.getDrawable()).getBitmap();
+                    Model.instance().uploadImage(userN, bitmap, url -> {
+                        if (url != null) {
+                            mUser.getUserPet().setPetImageUrl(url);
+                            Model.instance().editUser(mUser, (User) -> {
+                                Log.d("TAG", "userEdited");
+                                NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
+                            });
 
-                    }
-                });
-            }else{
-                Model.instance().editUser(mUser, (User)->{
-                    Log.d("TAG", "userEdited");
-//                    userViewModel.setCurrentUser(mUser);
-                    NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
-                });
+                        }
+                    });
+                }else{
+                    Model.instance().editUser(mUser, (User)->{
+                        Log.d("TAG", "userEdited");
+                        NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
+                    });
+                }
+
+                Log.d("TAG", mUser.toJson().toString());
             }
 
-            Log.d("TAG", mUser.toJson().toString());
         });
 
         binding.cancellBtn.setOnClickListener(view -> {
