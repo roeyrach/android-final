@@ -8,18 +8,19 @@
 
     <ScrollView
         android:id="@+id/user_all_posts_swipeRefresh"
-        android:layout_width="413dp"
-        android:layout_height="728dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_all_posts_posts_RecyclerList"
-            android:layout_width="408dp"
-            android:layout_height="735dp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </ScrollView>
 
 

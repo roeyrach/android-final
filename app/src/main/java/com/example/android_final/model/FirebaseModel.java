@@ -48,7 +48,7 @@ public class FirebaseModel {
 
     public void getAllPostsSince(Long since, Model.Listener<List<Post>> callback) {
         db.collection(Post.COLLECTION)
-                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED,new Timestamp(since,0))
+                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED, new Timestamp(since, 0))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -66,7 +66,26 @@ public class FirebaseModel {
             }
         });
     }
+    //create getAllPost method
+    public void getAllPosts(Model.Listener<List<Post>> callback) {
+        db.collection(Post.COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<Post> list = new LinkedList<>();
+                        if (task.isSuccessful()) {
+                            QuerySnapshot jsonsList = task.getResult();
+                            for (DocumentSnapshot json : jsonsList) {
+                                Post p = Post.fromJson(json.getData());
+                                list.add(p);
+                            }
 
+                        }
+                        callback.onComplete(list);
+                    }
+                });
+    }
     public void addPost(Post p, Model.Listener<Void> listener) {
         db.collection(Post.COLLECTION).document(p.getPostId()).set(p.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

@@ -85,8 +85,9 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     String fragmentName;
 
     public void setData(List<Post> data) {
+        //create a comparator to sort the list last updated
+        Collections.sort(data, (o1, o2) -> -1 * (o1.getLastUpdated().compareTo(o2.getLastUpdated())));
         this.data = data;
-        Collections.reverse(data);
         notifyDataSetChanged();
     }
 
