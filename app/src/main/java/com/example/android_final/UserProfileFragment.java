@@ -66,7 +66,8 @@ public class UserProfileFragment extends Fragment {
             if (user != null){
                 Log.d("TAG", user.getUserName());
                 userName.setText(user.getUserName());
-
+                petName.setText(R.string.petName);
+                petAge.setText(R.string.petAge);
                 petName.append("\t\t" +  user.getUserPet().getPetName());
                 petAge.append("\t\t" + user.getUserPet().getPetAge());
                 String uri = user.getUserPet().getPetImageUrl();
