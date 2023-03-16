@@ -27,10 +27,10 @@
             <ImageView
                 android:id="@+id/post_list_row_image"
                 android:layout_width="match_parent"
-
-                android:layout_height="247dp"
+                android:layout_height="350dp"
                 android:contentDescription="@string/content_description_media"
                 android:scaleType="centerCrop"
+
                 tools:srcCompat="@tools:sample/avatars[2]" />
 
             <LinearLayout
@@ -49,6 +49,7 @@
                     android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/avatar" />
 
                 <TextView

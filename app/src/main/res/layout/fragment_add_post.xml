@@ -110,10 +110,10 @@
                 android:text="save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.736"
+                app:layout_constraintHorizontal_bias="0.733"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_post_postContext"
-                app:layout_constraintVertical_bias="0.611" />
+                app:layout_constraintVertical_bias="0.115" />
 
             <Button
                 android:id="@+id/add_post_cancel"
@@ -122,10 +122,10 @@
                 android:text="cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.245"
+                app:layout_constraintHorizontal_bias="0.232"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_post_postContext"
-                app:layout_constraintVertical_bias="0.611" />
+                app:layout_constraintVertical_bias="0.115" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
