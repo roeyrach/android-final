@@ -8,7 +8,7 @@ import androidx.room.TypeConverters;
 
 import com.example.android_final.MyApplication;
 
-@Database(entities = {Post.class,User.class}, version = 86)
+@Database(entities = {Post.class,User.class}, version = 87)
 @TypeConverters({PetTypeConverter.class})
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract PostDao postDao();
