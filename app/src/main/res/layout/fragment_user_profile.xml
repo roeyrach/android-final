@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp">
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,7 +23,6 @@
                 android:id="@+id/avatarImg"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-
                 android:contentDescription="@string/content_description_media"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/avatar" />
