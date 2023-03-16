@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 import android.view.View;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -63,29 +64,54 @@ public class Model {
     public void refreshAllPosts() {
         EventPostListLoadingState.setValue(LoadingState.LOADING);
         //get local last update
-        Long localLastUpdate = Post.getLocalLastUpdate();
-        //get all updated records from firebase since local last update
-        firebaseModel.getAllPostsSince(localLastUpdate, list -> {
-            executor.execute(() -> {
-                Log.d("TAG", "firebase return : " + list.size());
-                Long time = localLastUpdate;
-                for (Post p : list) {
-                    //insert new record into ROOM
-                    localDb.postDao().insertAll(p);
-                    if (time < p.getLastUpdated()) {
-                        time = p.getLastUpdated();
+        if (postList == null){
+            Long localLastUpdate = Post.getLocalLastUpdate();
+            //get all updated records from firebase since local last update
+            firebaseModel.getAllPostsSince(localLastUpdate, list -> {
+                executor.execute(() -> {
+                    Log.d("TAG", "firebase return : " + list.size());
+                    Long time = localLastUpdate;
+                    for (Post p : list) {
+                        //insert new record into ROOM
+                        localDb.postDao().insertAll(p);
+                        if (time < p.getLastUpdated()) {
+                            time = p.getLastUpdated();
+                        }
                     }
-                }
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
 
-                }
-                //update local last update
-                Post.setLocalLastUpdate(time);
-                EventPostListLoadingState.postValue(LoadingState.NOT_LOADING);
+                    }
+                    //update local last update
+                    Post.setLocalLastUpdate(time);
+                    EventPostListLoadingState.postValue(LoadingState.NOT_LOADING);
+                });
             });
-        });
+        }else{
+            firebaseModel.getAllPosts(list -> {
+                executor.execute(() -> {
+                    Log.d("TAG", "firebase return : " + list.size());
+                    Long time = Post.getLocalLastUpdate();
+                    for (Post p : list) {
+                        //insert new record into ROOM
+                        localDb.postDao().insertAll(p);
+                        if (time < p.getLastUpdated()) {
+                            time = p.getLastUpdated();
+                        }
+                    }
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+
+                    }
+                    //update local last update
+                    Post.setLocalLastUpdate(time);
+                    EventPostListLoadingState.postValue(LoadingState.NOT_LOADING);
+                });
+            });
+        }
+
     }
 
     public void addPost(Post p, Listener<Void> listener) {

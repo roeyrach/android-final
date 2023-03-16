@@ -67,8 +67,8 @@
     <fragment
         android:id="@+id/addPostFragment"
         android:name="com.example.android_final.AddPostFragment"
-        android:label="fragment_add_post"
-        tools:layout="@layout/fragment_add_post" >
+        android:label="Add Post"
+        tools:layout="@layout/fragment_add_post">
         <action
             android:id="@+id/action_addPostFragment_to_mainFeedFragment"
             app:destination="@id/mainFeedFragment" />
@@ -95,8 +95,8 @@
     <fragment
         android:id="@+id/user_all_posts"
         android:name="com.example.android_final.UserAllPosts"
-        android:label="fragment_user_all_posts"
-        tools:layout="@layout/fragment_user_all_posts" >
+        android:label="User Posts"
+        tools:layout="@layout/fragment_user_all_posts">
         <action
             android:id="@+id/action_user_all_posts_to_editPost"
             app:destination="@id/editPost" />
@@ -104,14 +104,12 @@
     <fragment
         android:id="@+id/editPost"
         android:name="com.example.android_final.EditPost"
-        android:label="fragment_edit_post"
-        tools:layout="@layout/fragment_edit_post"
-        >
+        android:label="Edit Post"
+        tools:layout="@layout/fragment_edit_post">
         <argument
             android:name="postId"
-            app:argType="string"
             android:defaultValue="string"
-            />
+            app:argType="string" />
     </fragment>
 
 
