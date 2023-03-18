@@ -78,11 +78,6 @@ public class Model {
                             time = p.getLastUpdated();
                         }
                     }
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-
-                    }
                     //update local last update
                     Post.setLocalLastUpdate(time);
                     EventPostListLoadingState.postValue(LoadingState.NOT_LOADING);
@@ -99,11 +94,6 @@ public class Model {
                         if (time < p.getLastUpdated()) {
                             time = p.getLastUpdated();
                         }
-                    }
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-
                     }
                     //update local last update
                     Post.setLocalLastUpdate(time);

@@ -87,6 +87,7 @@
                 android:id="@+id/add_post_postContext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.571"
@@ -100,7 +101,8 @@
                     android:layout_height="61dp"
                     android:layout_marginTop="200dp"
                     android:hint="@string/post_context"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="35" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

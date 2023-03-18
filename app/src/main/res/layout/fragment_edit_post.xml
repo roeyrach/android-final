@@ -51,13 +51,14 @@
                 android:src="@drawable/ic_baseline_photo_camera_24" />
 
         </FrameLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="411dp"
-            android:layout_height="727dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="256dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -67,16 +68,15 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.571"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.507">
+                app:layout_constraintVertical_bias="0.25">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_post_post_context"
                     android:layout_width="379dp"
                     android:layout_height="61dp"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="50dp"
                     android:hint="@string/post_context"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -88,10 +88,10 @@
                 android:text="save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.736"
+                app:layout_constraintHorizontal_bias="0.727"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_post_postContext"
-                app:layout_constraintVertical_bias="0.611" />
+                app:layout_constraintVertical_bias="0.069" />
 
             <Button
                 android:id="@+id/edit_post_cancel"
@@ -100,10 +100,10 @@
                 android:text="cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.245"
+                app:layout_constraintHorizontal_bias="0.232"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_post_postContext"
-                app:layout_constraintVertical_bias="0.611" />
+                app:layout_constraintVertical_bias="0.069" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
