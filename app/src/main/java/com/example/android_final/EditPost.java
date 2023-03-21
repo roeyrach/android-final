@@ -23,11 +23,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.android_final.databinding.FragmentAddPostBinding;
 import com.example.android_final.databinding.FragmentEditPostBinding;
 import com.example.android_final.model.Model;
 import com.example.android_final.model.Post;
+import com.squareup.picasso.Picasso;
 
 
 public class EditPost extends Fragment {
@@ -37,7 +39,7 @@ public class EditPost extends Fragment {
     UserViewModel userViewModel;
     ActivityResultLauncher<Void> cameraLauncher;
     ActivityResultLauncher<String> galleryLauncher;
-
+    ImageView postImg;
     Boolean isAvatarSelected = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,11 @@ public class EditPost extends Fragment {
         binding = FragmentEditPostBinding.inflate(inflater, container, false);
         args = EditPostArgs.fromBundle(getArguments());
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        postImg = binding.editPostAvatarImg;
+        String uri = args.getImageUrl();
+        if (uri != null && uri.length() > 5){
+            Picasso.get().load(uri).into(postImg);
+        }
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             if (user != null) {
                 binding.editPostSave.setOnClickListener(v -> {
@@ -91,6 +98,7 @@ public class EditPost extends Fragment {
                     Post post = new Post(user.getUserName(), postText);
                     post.setAvatarUrl(user.getUserPet().getPetImageUrl());
                     post.setPostId(args.getPostId());
+                    post.setImageUrl(args.getImageUrl());
                     if (isAvatarSelected){
                         binding.editPostAvatarImg.setDrawingCacheEnabled(true);
                         binding.editPostAvatarImg.buildDrawingCache();
