@@ -95,6 +95,7 @@ public class Model {
                             time = p.getLastUpdated();
                         }
                     }
+
                     //update local last update
                     Post.setLocalLastUpdate(time);
                     EventPostListLoadingState.postValue(LoadingState.NOT_LOADING);
@@ -186,7 +187,7 @@ public class Model {
     public void editUser(User user, Listener<Void> listener){
         firebaseModel.addUser(user,(unused)->{
             executor.execute(()->{
-                localDb.userDao().insertUser(user);
+                localDb.userDao().updateUser(user);
 
             });
             listener.onComplete(null);
