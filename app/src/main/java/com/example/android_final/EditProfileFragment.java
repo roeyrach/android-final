@@ -24,12 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android_final.databinding.FragmentEditProfileBinding;
-import com.example.android_final.model.FirebaseModel;
 import com.example.android_final.model.Model;
-import com.example.android_final.model.Pet;
 import com.example.android_final.model.User;
 import com.squareup.picasso.Picasso;
 
@@ -37,11 +36,13 @@ public class EditProfileFragment extends Fragment {
     private FragmentEditProfileBinding binding;
     UserViewModel userViewModel;
     ImageView userImg;
-    TextView userName;
+    TextView petAge;
     TextView petName;
     ActivityResultLauncher<Void> cameraLauncher;
     ActivityResultLauncher<String> galleryLauncher;
     Boolean isAvatarSelected = false;
+
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,8 +99,9 @@ public class EditProfileFragment extends Fragment {
         });
 
         userImg = binding.avatarImg;
-        userName = binding.userName;
+        petAge = binding.petAge;
         petName = binding.petNameEt;
+        progressBar = binding.progressBar3;
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         User mUser = userViewModel.getCurrentUser().getValue();
         assert mUser != null;
@@ -112,7 +114,7 @@ public class EditProfileFragment extends Fragment {
 
         binding.saveBtn.setOnClickListener(view -> {
             AlertDialogFragment dialog = new AlertDialogFragment();
-            String userN = userName.getText().toString();
+            String userN = petAge.getText().toString();
             String petN = petName.getText().toString();
             if(userN.equals("") && petN.equals("")){
                 dialog.setMessage("Empty input");
@@ -121,13 +123,13 @@ public class EditProfileFragment extends Fragment {
             else{
                 if (!userN.equals(""))
                 {
-                    mUser.setUserName(userN);
+                    mUser.getUserPet().setPetAge(userN);
                 }
                 if (!petN.equals(""))
                 {
                     mUser.getUserPet().setPetName(petN);
                 }
-
+                progressBar.setVisibility(View.VISIBLE);
                 if(isAvatarSelected) {
                     binding.avatarImg.setDrawingCacheEnabled(true);
                     binding.avatarImg.buildDrawingCache();
@@ -138,6 +140,8 @@ public class EditProfileFragment extends Fragment {
                             Model.instance().editUser(mUser, (User) -> {
                                 Log.d("TAG", "userEdited");
                                 NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
+                                progressBar.setVisibility(View.INVISIBLE);
+
                             });
 
                         }
@@ -146,6 +150,8 @@ public class EditProfileFragment extends Fragment {
                     Model.instance().editUser(mUser, (User)->{
                         Log.d("TAG", "userEdited");
                         NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
+                        progressBar.setVisibility(View.INVISIBLE);
+
                     });
                 }
 
