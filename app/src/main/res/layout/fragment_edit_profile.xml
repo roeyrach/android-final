@@ -8,6 +8,7 @@
 
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,9 +29,9 @@
                     android:id="@+id/avatarImg"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:contentDescription="@string/avatarImg"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/avatar"
-                    android:contentDescription="@string/avatarImg" />
+                    app:srcCompat="@drawable/avatar" />
 
                 <ImageButton
                     android:id="@+id/galleryButton"
@@ -38,8 +39,8 @@
                     android:layout_height="50dp"
                     android:layout_gravity="bottom|start"
                     android:layout_margin="10dp"
-                    android:src="@drawable/ic_baseline_image_search_24"
-                    android:contentDescription="@string/imgbtn" />
+                    android:contentDescription="@string/imgbtn"
+                    android:src="@drawable/ic_baseline_image_search_24" />
 
                 <ImageButton
                     android:id="@+id/cameraButton"
@@ -47,30 +48,11 @@
                     android:layout_height="50dp"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="10dp"
-                    android:src="@drawable/ic_baseline_photo_camera_24"
-                    android:contentDescription="@string/imgbtn" />
+                    android:contentDescription="@string/imgbtn"
+                    android:src="@drawable/ic_baseline_photo_camera_24" />
 
             </FrameLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/userNameInput"
-                    android:inputType="text"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -78,21 +60,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                >
+                android:layout_marginEnd="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/petNameEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/petName"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
 
-
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/petAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/petAge"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -103,30 +96,33 @@
                 <Button
                     android:id="@+id/saveBtn"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:layout_weight="1"
                     android:text="@string/save" />
 
                 <Button
                     android:id="@+id/cancellBtn"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:layout_weight="1"
                     android:text="@string/cancel" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <ProgressBar
-                android:id="@+id/pet_info_progressbar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:textAlignment="center"
-                android:visibility="gone" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        android:visibility="invisible"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
