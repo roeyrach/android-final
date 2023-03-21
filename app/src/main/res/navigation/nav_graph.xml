@@ -110,6 +110,10 @@
             android:name="postId"
             android:defaultValue="string"
             app:argType="string" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue="string" />
     </fragment>
 
 

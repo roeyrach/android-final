@@ -91,6 +91,7 @@ public class EditPost extends Fragment {
                     Post post = new Post(user.getUserName(), postText);
                     post.setAvatarUrl(user.getUserPet().getPetImageUrl());
                     post.setPostId(args.getPostId());
+                    post.setImageUrl(args.getImageUrl());
                     if (isAvatarSelected){
                         binding.editPostAvatarImg.setDrawingCacheEnabled(true);
                         binding.editPostAvatarImg.buildDrawingCache();

@@ -65,6 +65,7 @@ public class UserAllPosts extends Fragment {
                 UserAllPostsDirections.ActionUserAllPostsToEditPost action = UserAllPostsDirections.actionUserAllPostsToEditPost();
 
                 action.setPostId(post.getPostId());
+                action.setImageUrl(post.getImageUrl());
                 NavHostFragment.findNavController(UserAllPosts.this).navigate(action);
             }
         });
