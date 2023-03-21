@@ -78,7 +78,8 @@
                     android:layout_height="61dp"
                     android:layout_marginTop="50dp"
                     android:hint="@string/post_context"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLength="35" />/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
